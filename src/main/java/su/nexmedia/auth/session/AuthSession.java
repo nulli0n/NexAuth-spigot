@@ -11,9 +11,9 @@ import java.util.UUID;
 public class AuthSession {
 
     private final String ip;
-    private final long destroyDate;
+    private final long   destroyDate;
 
-    private int failedAttempts;
+    private int  failedAttempts;
     private UUID authorizedId;
     private long authorizationTimeoutDate;
     private long bannedUntil;

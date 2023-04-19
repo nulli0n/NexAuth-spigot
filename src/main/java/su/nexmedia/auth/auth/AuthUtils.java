@@ -10,8 +10,8 @@ import java.util.function.Predicate;
 
 public class AuthUtils {
 
-    public static final String IP_LOCAL = "127.0.0.1";
-    private static final String IP_ZERO = "0.0.0.0";
+    public static final  String IP_LOCAL = "127.0.0.1";
+    private static final String IP_ZERO  = "0.0.0.0";
 
     @NotNull
     public static String finePassword(@NotNull String password) {

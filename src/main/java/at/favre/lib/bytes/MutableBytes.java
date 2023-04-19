@@ -34,11 +34,11 @@ import java.util.Objects;
 public final class MutableBytes extends Bytes implements AutoCloseable {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = -4225060723968990400L;
+     *
+     */
+    private static final long serialVersionUID = -4225060723968990400L;
 
-	MutableBytes(byte[] byteArray, ByteOrder byteOrder) {
+    MutableBytes(byte[] byteArray, ByteOrder byteOrder) {
         super(byteArray, byteOrder, new Factory());
     }
 
@@ -201,6 +201,7 @@ public final class MutableBytes extends Bytes implements AutoCloseable {
      * Factory creating mutable byte types
      */
     private static class Factory implements BytesFactory {
+
         @Override
         public Bytes wrap(byte[] array, ByteOrder byteOrder) {
             return new MutableBytes(array, byteOrder);

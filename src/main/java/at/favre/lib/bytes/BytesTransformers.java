@@ -167,6 +167,7 @@ public final class BytesTransformers {
      * Shuffles the internal byte array
      */
     public static final class ShuffleTransformer implements BytesTransformer {
+
         private final Random random;
 
         ShuffleTransformer(Random random) {
@@ -192,6 +193,7 @@ public final class BytesTransformers {
      * Sorts the internal byte array with given {@link java.util.Comparator}
      */
     public static final class SortTransformer implements BytesTransformer {
+
         private final Comparator<Byte> comparator;
 
         SortTransformer() {
@@ -208,7 +210,8 @@ public final class BytesTransformers {
                 byte[] out = inPlace ? currentArray : Bytes.from(currentArray).array();
                 Arrays.sort(out);
                 return out;
-            } else {
+            }
+            else {
                 //no in-place implementation with comparator
                 Byte[] boxedArray = Bytes.wrap(currentArray).toBoxedArray();
                 Arrays.sort(boxedArray, comparator);
@@ -225,6 +228,7 @@ public final class BytesTransformers {
          * Converting each byte into unsigned version and comparing it (0...255) vs (-128..127)
          */
         static final class UnsignedByteComparator implements Comparator<Byte> {
+
             @Override
             public int compare(Byte o1, Byte o2) {
                 int byteA = o1 & 0xff;
@@ -240,9 +244,10 @@ public final class BytesTransformers {
      * Adds or converts to arbitrary checksum
      */
     public static final class ChecksumTransformer implements BytesTransformer {
+
         private final Checksum checksum;
-        private final Mode mode;
-        private final int checksumLengthByte;
+        private final Mode     mode;
+        private final int      checksumLengthByte;
 
         ChecksumTransformer(Checksum checksum, Mode mode, int checksumLengthByte) {
             if (checksumLengthByte <= 0 || checksumLengthByte > 8)
@@ -261,7 +266,8 @@ public final class BytesTransformers {
 
             if (mode == Mode.TRANSFORM) {
                 return checksumBytes;
-            } else {
+            }
+            else {
                 return Bytes.from(currentArray, checksumBytes).array();
             }
         }
@@ -290,6 +296,7 @@ public final class BytesTransformers {
      * Byte compression with gzip
      */
     public static final class GzipCompressor implements BytesTransformer {
+
         private final boolean compress;
 
         GzipCompressor(boolean compress) {
@@ -313,7 +320,8 @@ public final class BytesTransformers {
                 }
 
                 return bos.toByteArray();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new IllegalStateException("could not decompress gzip", e);
             }
         }
@@ -323,7 +331,8 @@ public final class BytesTransformers {
 
             try (GZIPOutputStream gzipOutputStream = new GZIPOutputStream(bos)) {
                 gzipOutputStream.write(content);
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new IllegalStateException("could not compress gzip", e);
             }
 
@@ -340,7 +349,8 @@ public final class BytesTransformers {
      * HMAC transformer
      */
     public static final class HmacTransformer implements BytesTransformer {
-        static final String HMAC_SHA1 = "HmacSHA1";
+
+        static final String HMAC_SHA1   = "HmacSHA1";
         static final String HMAC_SHA256 = "HmacSHA256";
 
         private final byte[] secretKey;
@@ -363,7 +373,8 @@ public final class BytesTransformers {
                 Mac mac = Mac.getInstance(macAlgorithmName);
                 mac.init(new SecretKeySpec(secretKey, macAlgorithmName));
                 return mac.doFinal(currentArray);
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new IllegalArgumentException(e);
             }
         }

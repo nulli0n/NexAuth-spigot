@@ -50,28 +50,29 @@ public interface Radix64Encoder {
 
     /**
      * A mod of Square's Okio Base64 encoder
-     *
+     * <p>
      * Original author: Alexander Y. Kleymenov
      *
      * @see <a href="https://github.com/square/okio/blob/okio-parent-1.15.0/okio/src/main/java/okio/Base64.java">Okio</a>
      */
     class Default implements Radix64Encoder {
+
         private static final byte[] DECODE_TABLE = {
-                -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-                -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-                -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 1, 54, 55, 56, 57,
-                58, 59, 60, 61, 62, 63, -1, -1, -1, -2, -1, -1, -1, 2, 3, 4, 5, 6, 7,
-                8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
-                26, 27, -1, -1, -1, -1, -1, -1, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
-                38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53};
+            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 1, 54, 55, 56, 57,
+            58, 59, 60, 61, 62, 63, -1, -1, -1, -2, -1, -1, -1, 2, 3, 4, 5, 6, 7,
+            8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
+            26, 27, -1, -1, -1, -1, -1, -1, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
+            38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53};
 
         private static final byte[] MAP = new byte[]{
-                '.', '/', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-                'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
-                'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
-                'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-                'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5',
-                '6', '7', '8', '9'
+            '.', '/', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+            'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
+            'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+            'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+            'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5',
+            '6', '7', '8', '9'
         };
 
         @Override
@@ -102,9 +103,11 @@ public interface Radix64Encoder {
                 int bits;
                 if (c == '.' || c == '/' || (c >= 'A' && c <= 'z') || (c >= '0' && c <= '9')) {
                     bits = DECODE_TABLE[c];
-                } else if (c == '\n' || c == '\r' || c == ' ' || c == '\t') {
+                }
+                else if (c == '\n' || c == '\r' || c == ' ' || c == '\t') {
                     continue;
-                } else {
+                }
+                else {
                     throw new IllegalArgumentException("invalid character to decode: " + c);
                 }
 
@@ -124,11 +127,13 @@ public interface Radix64Encoder {
             if (lastWordChars == 1) {
                 // We read 1 char followed by "===". But 6 bits is a truncated byte! Fail.
                 return new byte[0];
-            } else if (lastWordChars == 2) {
+            }
+            else if (lastWordChars == 2) {
                 // We read 2 chars followed by "==". Emit 1 byte with 8 of those 12 bits.
                 word = word << 12;
                 out[outCount++] = (byte) (word >> 16);
-            } else if (lastWordChars == 3) {
+            }
+            else if (lastWordChars == 3) {
                 // We read 3 chars, followed by "=". Emit 2 bytes for 16 of those 18 bits.
                 word = word << 6;
                 out[outCount++] = (byte) (word >> 16);

@@ -34,11 +34,11 @@ import java.nio.ReadOnlyBufferException;
 public final class ReadOnlyBytes extends Bytes {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 6856113917022421849L;
+     *
+     */
+    private static final long serialVersionUID = 6856113917022421849L;
 
-	/**
+    /**
      * Creates a new read-only instance
      *
      * @param byteArray internal byte array
@@ -62,6 +62,7 @@ public final class ReadOnlyBytes extends Bytes {
      * Factory creating mutable byte types
      */
     private static class Factory implements BytesFactory {
+
         @Override
         public Bytes wrap(byte[] array, ByteOrder byteOrder) {
             return new ReadOnlyBytes(array, byteOrder);

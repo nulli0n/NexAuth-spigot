@@ -6,6 +6,7 @@ import java.util.Objects;
  * Factory for default {@link LongPasswordStrategy} implementatins
  */
 public final class LongPasswordStrategies {
+
     private LongPasswordStrategies() {
     }
 

@@ -30,21 +30,22 @@ import java.util.Arrays;
  * @author Alexander Y. Kleymenov
  */
 final class Base64 {
+
     private Base64() {
     }
 
     private static final byte[] MAP = new byte[]{
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
-            'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
-            'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4',
-            '5', '6', '7', '8', '9', '+', '/'
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+        'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+        'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4',
+        '5', '6', '7', '8', '9', '+', '/'
     };
 
     private static final byte[] URL_MAP = new byte[]{
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
-            'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
-            'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4',
-            '5', '6', '7', '8', '9', '-', '_'
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+        'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+        'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4',
+        '5', '6', '7', '8', '9', '-', '_'
     };
 
     static byte[] decode(CharSequence in) {
@@ -72,23 +73,29 @@ final class Base64 {
                 //  A    65    0
                 //  Z    90    25 (ASCII - 65)
                 bits = c - 65;
-            } else if (c >= 'a' && c <= 'z') {
+            }
+            else if (c >= 'a' && c <= 'z') {
                 // char ASCII value
                 //  a    97    26
                 //  z    122   51 (ASCII - 71)
                 bits = c - 71;
-            } else if (c >= '0' && c <= '9') {
+            }
+            else if (c >= '0' && c <= '9') {
                 // char ASCII value
                 //  0    48    52
                 //  9    57    61 (ASCII + 4)
                 bits = c + 4;
-            } else if (c == '+' || c == '-') {
+            }
+            else if (c == '+' || c == '-') {
                 bits = 62;
-            } else if (c == '/' || c == '_') {
+            }
+            else if (c == '/' || c == '_') {
                 bits = 63;
-            } else if (c == '\n' || c == '\r' || c == ' ' || c == '\t') {
+            }
+            else if (c == '\n' || c == '\r' || c == ' ' || c == '\t') {
                 continue;
-            } else {
+            }
+            else {
                 throw new IllegalArgumentException("invalid character to decode: " + c);
             }
 
@@ -108,11 +115,13 @@ final class Base64 {
         if (lastWordChars == 1) {
             // We read 1 char followed by "===". But 6 bits is a truncated byte! Fail.
             return null;
-        } else if (lastWordChars == 2) {
+        }
+        else if (lastWordChars == 2) {
             // We read 2 chars followed by "==". Emit 1 byte with 8 of those 12 bits.
             word = word << 12;
             out[outCount++] = (byte) (word >> 16);
-        } else if (lastWordChars == 3) {
+        }
+        else if (lastWordChars == 3) {
             // We read 3 chars, followed by "=". Emit 2 bytes for 16 of those 18 bits.
             word = word << 6;
             out[outCount++] = (byte) (word >> 16);
@@ -170,7 +179,8 @@ final class Base64 {
         int len;
         if (doPadding) {
             len = 4 * ((srclen + 2) / 3);
-        } else {
+        }
+        else {
             int n = srclen % 3;
             len = 4 * (srclen / 3) + (n == 0 ? 0 : n + 1);
         }

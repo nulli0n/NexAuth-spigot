@@ -17,54 +17,54 @@ import java.util.Map;
 
 public class ChangePasswordCommand extends AbstractCommand<NexAuth> {
 
-	public ChangePasswordCommand(@NotNull NexAuth plugin) {
-		super(plugin, new String[] {"changepassword"}, Perms.COMMAND_ADMIN);
-	}
+    public ChangePasswordCommand(@NotNull NexAuth plugin) {
+        super(plugin, new String[]{"changepassword"}, Perms.COMMAND_ADMIN);
+    }
 
-	@Override
-	@NotNull
-	public String getUsage() {
-		return plugin.getMessage(Lang.COMMAND_ADMIN_CHANGEPASSWORD_USAGE).getLocalized();
-	}
+    @Override
+    @NotNull
+    public String getUsage() {
+        return plugin.getMessage(Lang.COMMAND_ADMIN_CHANGEPASSWORD_USAGE).getLocalized();
+    }
 
-	@Override
-	@NotNull
-	public String getDescription() {
-		return plugin.getMessage(Lang.COMMAND_ADMIN_CHANGEPASSWORD_DESC).getLocalized();
-	}
+    @Override
+    @NotNull
+    public String getDescription() {
+        return plugin.getMessage(Lang.COMMAND_ADMIN_CHANGEPASSWORD_DESC).getLocalized();
+    }
 
-	@Override
-	public boolean isPlayerOnly() {
-		return false;
-	}
-	
-	@Override
-	@NotNull
-	public List<String> getTab(@NotNull Player player, int arg, @NotNull String[] args) {
-		if (arg == 1) {
-			return CollectionsUtil.playerNames(player);
-		}
-		return super.getTab(player, arg, args);
-	}
+    @Override
+    public boolean isPlayerOnly() {
+        return false;
+    }
 
-	@Override
-	protected void onExecute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args, @NotNull Map<String, String> flags) {
-		if (args.length < 3) {
-			this.printUsage(sender);
-			return;
-		}
+    @Override
+    @NotNull
+    public List<String> getTab(@NotNull Player player, int arg, @NotNull String[] args) {
+        if (arg == 1) {
+            return CollectionsUtil.playerNames(player);
+        }
+        return super.getTab(player, arg, args);
+    }
 
-		AuthUser user = plugin.getUserManager().getUserData(args[1]);
-		if (user == null) {
-			this.errorPlayer(sender);
-			return;
-		}
-		
-		String password = AuthUtils.finePassword(args[2]);
-		user.setPassword(password, user.getEncryptionType());
-		
-		plugin.getMessage(Lang.COMMAND_ADMIN_CHANGEPASSWORD_DONE)
-			.replace(Placeholders.Player.NAME, user.getName())
-			.send(sender);
-	}
+    @Override
+    protected void onExecute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args, @NotNull Map<String, String> flags) {
+        if (args.length < 3) {
+            this.printUsage(sender);
+            return;
+        }
+
+        AuthUser user = plugin.getUserManager().getUserData(args[1]);
+        if (user == null) {
+            this.errorPlayer(sender);
+            return;
+        }
+
+        String password = AuthUtils.finePassword(args[2]);
+        user.setPassword(password, user.getEncryptionType());
+
+        plugin.getMessage(Lang.COMMAND_ADMIN_CHANGEPASSWORD_DONE)
+            .replace(Placeholders.Player.NAME, user.getName())
+            .send(sender);
+    }
 }

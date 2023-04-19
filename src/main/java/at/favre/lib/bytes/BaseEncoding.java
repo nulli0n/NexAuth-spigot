@@ -28,18 +28,19 @@ import java.util.Objects;
 
 /**
  * Encoder which supports arbitrary alphabet and padding.
- *
+ * <p>
  * Derived from Google Guava's common/io/ BaseEncoding
  * <p>
  * See: https://github.com/google/guava/blob/v26.0/guava/src/com/google/common/io/BaseEncoding.java
  */
 final class BaseEncoding implements BinaryToTextEncoding.EncoderDecoder {
+
     private static final char ASCII_MAX = 127;
 
-    static final Alphabet BASE32_RFC4848 = new Alphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".toCharArray());
-    static final char BASE32_RFC4848_PADDING = '=';
+    static final Alphabet BASE32_RFC4848         = new Alphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".toCharArray());
+    static final char     BASE32_RFC4848_PADDING = '=';
 
-    private final Alphabet alphabet;
+    private final Alphabet  alphabet;
     private final Character paddingChar;
 
     public BaseEncoding(Alphabet alphabet, Character paddingChar) {
@@ -60,7 +61,8 @@ final class BaseEncoding implements BinaryToTextEncoding.EncoderDecoder {
         StringBuilder result = new StringBuilder(maxEncodedSize(len));
         try {
             encodeTo(result, bytes, off, len);
-        } catch (IOException impossible) {
+        }
+        catch (IOException impossible) {
             throw new AssertionError(impossible);
         }
         return result.toString();
@@ -125,7 +127,8 @@ final class BaseEncoding implements BinaryToTextEncoding.EncoderDecoder {
     private static byte[] extract(byte[] result, int length) {
         if (length == result.length) {
             return result;
-        } else {
+        }
+        else {
             byte[] trunc = new byte[length];
             System.arraycopy(result, 0, trunc, 0, length);
             return trunc;
@@ -154,12 +157,13 @@ final class BaseEncoding implements BinaryToTextEncoding.EncoderDecoder {
     }
 
     static final class Alphabet {
+
         // this is meant to be immutable -- don't modify it!
         private final char[] chars;
-        final int mask;
-        final int bitsPerChar;
-        final int charsPerChunk;
-        final int bytesPerChunk;
+        final         int    mask;
+        final         int    bitsPerChar;
+        final         int    charsPerChunk;
+        final         int    bytesPerChunk;
         private final byte[] decodabet;
 
         Alphabet(char[] chars) {

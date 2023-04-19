@@ -18,6 +18,7 @@ import at.favre.lib.bytes.MutableBytes;
  * The main access point the the Bcrypt APIs
  */
 public final class BCrypt {
+
     private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
     /**
@@ -157,9 +158,10 @@ public final class BCrypt {
      * Can create bcrypt hashes
      */
     public static final class Hasher {
-        private final Charset defaultCharset = DEFAULT_CHARSET;
-        private final Version version;
-        private final SecureRandom secureRandom;
+
+        private final Charset              defaultCharset = DEFAULT_CHARSET;
+        private final Version              version;
+        private final SecureRandom         secureRandom;
         private final LongPasswordStrategy longPasswordStrategy;
 
         private Hasher(Version version, SecureRandom secureRandom, LongPasswordStrategy longPasswordStrategy) {
@@ -226,7 +228,8 @@ public final class BCrypt {
             try {
                 passwordBytes = Bytes.from(password, defaultCharset).array();
                 return hash(cost, Bytes.random(SALT_LENGTH, secureRandom).array(), passwordBytes);
-            } finally {
+            }
+            finally {
                 Bytes.wrapNullSafe(passwordBytes).mutable().secureWipe();
             }
         }
@@ -306,10 +309,11 @@ public final class BCrypt {
             try {
                 byte[] hash = new BCryptOpenBSDProtocol().cryptRaw(1L << (long) cost, salt, pwWithNullTerminator);
                 return new HashData(cost, version, salt, version.useOnly23bytesForHash ?
-                        Bytes.wrap(hash).resize(HASH_OUT_LENGTH, BytesTransformer.ResizeTransformer.Mode.RESIZE_KEEP_FROM_ZERO_INDEX).array() :
-                        hash
+                    Bytes.wrap(hash).resize(HASH_OUT_LENGTH, BytesTransformer.ResizeTransformer.Mode.RESIZE_KEEP_FROM_ZERO_INDEX).array() :
+                    hash
                 );
-            } finally {
+            }
+            finally {
                 Bytes.wrapNullSafe(pwWithNullTerminator).mutable().secureWipe();
             }
         }
@@ -319,10 +323,11 @@ public final class BCrypt {
      * Holds the raw data of a bcrypt hash
      */
     public static final class HashData {
+
         /**
          * The cost (log2 factor) used to create the hash
          */
-        public final int cost;
+        public final int     cost;
         /**
          * The used version
          */
@@ -330,18 +335,18 @@ public final class BCrypt {
         /**
          * The raw 16 bytes of the salt (not the radix64 encoded version)
          */
-        public final byte[] rawSalt;
+        public final byte[]  rawSalt;
         /**
          * The raw 23 bytes of hash (not the radix64 encoded version)
          */
-        public final byte[] rawHash;
+        public final byte[]  rawHash;
 
         public HashData(int cost, Version version, byte[] rawSalt, byte[] rawHash) {
             Objects.requireNonNull(rawHash);
             Objects.requireNonNull(rawSalt);
             Objects.requireNonNull(version);
             if (!Bytes.wrap(rawSalt).validate(BytesValidators.exactLength(16)) ||
-                    !Bytes.wrap(rawHash).validate(BytesValidators.or(BytesValidators.exactLength(23), BytesValidators.exactLength(24)))) {
+                !Bytes.wrap(rawHash).validate(BytesValidators.or(BytesValidators.exactLength(23), BytesValidators.exactLength(24)))) {
                 throw new IllegalArgumentException("salt must be exactly 16 bytes and hash 23 bytes long");
             }
             this.cost = cost;
@@ -364,9 +369,9 @@ public final class BCrypt {
             if (o == null || getClass() != o.getClass()) return false;
             HashData hashData = (HashData) o;
             return cost == hashData.cost &&
-                    version == hashData.version &&
-                    Bytes.wrap(rawSalt).equalsConstantTime(hashData.rawSalt) &&
-                    Bytes.wrap(rawHash).equalsConstantTime(hashData.rawHash);
+                version == hashData.version &&
+                Bytes.wrap(rawSalt).equalsConstantTime(hashData.rawSalt) &&
+                Bytes.wrap(rawHash).equalsConstantTime(hashData.rawHash);
         }
 
         @Override
@@ -380,11 +385,11 @@ public final class BCrypt {
         @Override
         public String toString() {
             return "HashData{" +
-                    "cost=" + cost +
-                    ", version=" + version +
-                    ", rawSalt=" + Bytes.wrap(rawSalt).encodeHex() +
-                    ", rawHash=" + Bytes.wrap(rawHash).encodeHex() +
-                    '}';
+                "cost=" + cost +
+                ", version=" + version +
+                ", rawSalt=" + Bytes.wrap(rawSalt).encodeHex() +
+                ", rawHash=" + Bytes.wrap(rawHash).encodeHex() +
+                '}';
         }
     }
 
@@ -392,9 +397,10 @@ public final class BCrypt {
      * Can verify bcrypt hashes
      */
     public static final class Verifyer {
-        private final Charset defaultCharset = DEFAULT_CHARSET;
+
+        private final Charset              defaultCharset = DEFAULT_CHARSET;
         private final LongPasswordStrategy longPasswordStrategy;
-        private final Version version;
+        private final Version              version;
 
         private Verifyer(Version version, LongPasswordStrategy longPasswordStrategy) {
             this.version = version;
@@ -505,7 +511,8 @@ public final class BCrypt {
         private static char[] toCharArray(CharSequence charSequence) {
             if (charSequence instanceof String) {
                 return charSequence.toString().toCharArray();
-            } else {
+            }
+            else {
                 char[] buffer = new char[charSequence.length()];
                 for (int i = 0; i < charSequence.length(); i++) {
                     buffer[i] = charSequence.charAt(i);
@@ -524,7 +531,8 @@ public final class BCrypt {
                 passwordBytes = Bytes.from(password, defaultCharset).array();
                 bcryptHashBytes = Bytes.from(bcryptHash, defaultCharset).array();
                 return innerVerifyBytes(passwordBytes, bcryptHashBytes, strict);
-            } finally {
+            }
+            finally {
                 Bytes.wrapNullSafe(passwordBytes).mutable().secureWipe();
                 Bytes.wrapNullSafe(bcryptHashBytes).mutable().secureWipe();
             }
@@ -543,7 +551,8 @@ public final class BCrypt {
                 if (this.version == null) {
                     hashData = Version.VERSION_2A.parser.parse(bcryptHash);
                     usedVersion = hashData.version;
-                } else {
+                }
+                else {
                     usedVersion = this.version;
                     hashData = usedVersion.parser.parse(bcryptHash);
                 }
@@ -551,7 +560,7 @@ public final class BCrypt {
                 if (strict) {
                     if (this.version == null) {
                         throw new IllegalArgumentException("Using strict requires to define a Version. " +
-                                "Try 'BCrypt.verifier(Version.VERSION_2A)'.");
+                            "Try 'BCrypt.verifier(Version.VERSION_2A)'.");
                     }
                     if (hashData.version != this.version) {
                         return new Result(hashData, false);
@@ -559,7 +568,8 @@ public final class BCrypt {
                 }
 
                 return verifyBCrypt(usedVersion, determinePasswordStrategy(usedVersion), password, hashData.cost, hashData.rawSalt, hashData.rawHash);
-            } catch (IllegalBCryptFormatException e) {
+            }
+            catch (IllegalBCryptFormatException e) {
                 return new Result(e);
             }
         }
@@ -568,7 +578,8 @@ public final class BCrypt {
             LongPasswordStrategy usedLongPasswordStrategy;
             if (this.longPasswordStrategy == null) {
                 usedLongPasswordStrategy = LongPasswordStrategies.strict(usedVersion);
-            } else {
+            }
+            else {
                 usedLongPasswordStrategy = this.longPasswordStrategy;
             }
             return usedLongPasswordStrategy;
@@ -619,7 +630,7 @@ public final class BCrypt {
         private static Result verifyBCrypt(Version version, LongPasswordStrategy longPasswordStrategy,
                                            byte[] password, int cost, byte[] salt, byte[] rawBcryptHash23Bytes) {
             HashData hashData = BCrypt.with(Objects.requireNonNull(version), Objects.requireNonNull(longPasswordStrategy))
-                    .hashRaw(cost, Objects.requireNonNull(salt), Objects.requireNonNull(password));
+                .hashRaw(cost, Objects.requireNonNull(salt), Objects.requireNonNull(password));
             return new Result(hashData, Bytes.wrap(hashData.rawHash).equalsConstantTime(Objects.requireNonNull(rawBcryptHash23Bytes)));
         }
     }
@@ -628,6 +639,7 @@ public final class BCrypt {
      * Result of a bcrypt hash verification
      */
     public static final class Result {
+
         /**
          * The parts of the modular crypt format (salt, raw hash, cost factor, version)
          */
@@ -669,9 +681,9 @@ public final class BCrypt {
             if (o == null || getClass() != o.getClass()) return false;
             Result result = (Result) o;
             return validFormat == result.validFormat &&
-                    verified == result.verified &&
-                    Objects.equals(details, result.details) &&
-                    Objects.equals(formatErrorMessage, result.formatErrorMessage);
+                verified == result.verified &&
+                Objects.equals(details, result.details) &&
+                Objects.equals(formatErrorMessage, result.formatErrorMessage);
         }
 
         @Override
@@ -682,11 +694,11 @@ public final class BCrypt {
         @Override
         public String toString() {
             return "Result{" +
-                    "details=" + details +
-                    ", validFormat=" + validFormat +
-                    ", verified=" + verified +
-                    ", formatErrorMessage='" + formatErrorMessage + '\'' +
-                    '}';
+                "details=" + details +
+                ", validFormat=" + validFormat +
+                ", verified=" + verified +
+                ", formatErrorMessage='" + formatErrorMessage + '\'' +
+                '}';
         }
     }
 
@@ -696,8 +708,9 @@ public final class BCrypt {
      * See: https://passlib.readthedocs.io/en/stable/modular_crypt_format.html
      */
     public static final class Version {
+
         private static final BCryptFormatter DEFAULT_FORMATTER = new BCryptFormatter.Default(new Radix64Encoder.Default(), BCrypt.DEFAULT_CHARSET);
-        private static final BCryptParser DEFAULT_PARSER = new BCryptParser.Default(new Radix64Encoder.Default(), BCrypt.DEFAULT_CHARSET);
+        private static final BCryptParser    DEFAULT_PARSER    = new BCryptParser.Default(new Radix64Encoder.Default(), BCrypt.DEFAULT_CHARSET);
 
         /**
          * Absolutely maximum length bcrypt can support (18x32bit)
@@ -833,9 +846,9 @@ public final class BCrypt {
             if (o == null || getClass() != o.getClass()) return false;
             Version version = (Version) o;
             return useOnly23bytesForHash == version.useOnly23bytesForHash &&
-                    appendNullTerminator == version.appendNullTerminator &&
-                    allowedMaxPwLength == version.allowedMaxPwLength &&
-                    Arrays.equals(versionIdentifier, version.versionIdentifier);
+                appendNullTerminator == version.appendNullTerminator &&
+                allowedMaxPwLength == version.allowedMaxPwLength &&
+                Arrays.equals(versionIdentifier, version.versionIdentifier);
         }
 
         @Override

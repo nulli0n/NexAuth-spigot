@@ -66,15 +66,17 @@ public interface BinaryToTextEncoding {
      * Unifies both interfaces {@link Encoder} and {@link Decoder}
      */
     interface EncoderDecoder extends Encoder, Decoder {
+
     }
 
     /**
      * Hex or Base16
      */
     class Hex implements EncoderDecoder {
-        private static final char[] LOOKUP_TABLE_LOWER = new char[]{0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66};
-        private static final char[] LOOKUP_TABLE_UPPER = new char[]{0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46};
-        private final boolean upperCase;
+
+        private static final char[]  LOOKUP_TABLE_LOWER = new char[]{0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66};
+        private static final char[]  LOOKUP_TABLE_UPPER = new char[]{0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46};
+        private final        boolean upperCase;
 
         public Hex() {
             this(true);
@@ -105,9 +107,10 @@ public interface BinaryToTextEncoding {
 
             int start;
             if (Objects.requireNonNull(hexString).length() > 2 &&
-                    hexString.charAt(0) == '0' && hexString.charAt(1) == 'x') {
+                hexString.charAt(0) == '0' && hexString.charAt(1) == 'x') {
                 start = 2;
-            } else {
+            }
+            else {
                 start = 0;
             }
 
@@ -124,7 +127,8 @@ public interface BinaryToTextEncoding {
             for (int i = start; i < len; i += 2) {
                 if (i == start && isOddLength) {
                     first4Bits = 0;
-                } else {
+                }
+                else {
                     first4Bits = Character.digit(hexString.charAt(i), 16);
                 }
                 second4Bits = Character.digit(hexString.charAt(i + 1), 16);
@@ -132,7 +136,8 @@ public interface BinaryToTextEncoding {
                 if (first4Bits == -1 || second4Bits == -1) {
                     if (i == start && isOddLength) {
                         throw new IllegalArgumentException("'" + hexString.charAt(i + 1) + "' at index " + (i + 1) + " is not hex formatted");
-                    } else {
+                    }
+                    else {
                         throw new IllegalArgumentException("'" + hexString.charAt(i) + hexString.charAt(i + 1) + "' at index " + i + " is not hex formatted");
                     }
                 }
@@ -147,6 +152,7 @@ public interface BinaryToTextEncoding {
      * Simple Base64 encoder
      */
     class Base64Encoding implements EncoderDecoder {
+
         private final boolean urlSafe;
         private final boolean padding;
 
@@ -174,6 +180,7 @@ public interface BinaryToTextEncoding {
      * Simple radix encoder which internally uses {@link BigInteger#toString(int)}
      */
     class BaseRadixNumber implements EncoderDecoder {
+
         private final int radix;
 
         BaseRadixNumber(int radix) {

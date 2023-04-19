@@ -17,7 +17,7 @@ import java.util.Map;
 public class ResetSecretCommand extends AbstractCommand<NexAuth> {
 
     public ResetSecretCommand(@NotNull NexAuth plugin) {
-        super(plugin, new String[] {"resetsecret"}, Perms.COMMAND_ADMIN);
+        super(plugin, new String[]{"resetsecret"}, Perms.COMMAND_ADMIN);
     }
 
     @Override

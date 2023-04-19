@@ -22,116 +22,116 @@ import su.nexmedia.engine.api.data.UserDataHolder;
 import su.nexmedia.engine.command.list.ReloadSubCommand;
 
 public class NexAuth extends NexPlugin<NexAuth> implements UserDataHolder<NexAuth, AuthUser> {
-	
-	private DataHandler dataHandler;
-	private UserManager userManager;
 
-	private AuthManager authManager;
-	private SessionManager sessionManager;
+    private DataHandler dataHandler;
+    private UserManager userManager;
 
-	private LogFilter logFilter;
+    private AuthManager    authManager;
+    private SessionManager sessionManager;
 
-	@Override
-	@NotNull
-	protected NexAuth getSelf() {
-		return this;
-	}
+    private LogFilter logFilter;
 
-	@Override
-	public void enable() {
-		this.authManager = new AuthManager(this);
-		this.authManager.setup();
+    @Override
+    @NotNull
+    protected NexAuth getSelf() {
+        return this;
+    }
 
-		this.sessionManager = new SessionManager(this);
-		this.sessionManager.setup();
+    @Override
+    public void enable() {
+        this.authManager = new AuthManager(this);
+        this.authManager.setup();
 
-		((Logger) LogManager.getRootLogger()).addFilter(this.logFilter = new LogFilter());
-	}
-	
-	@Override
-	public void disable() {
-		if (this.authManager != null) {
-			this.authManager.shutdown();
-			this.authManager = null;
-		}
-		if (this.sessionManager != null) {
-			this.sessionManager.shutdown();
-			this.sessionManager = null;
-		}
-		this.logFilter.stop();
-		this.logFilter = null;
-	}
+        this.sessionManager = new SessionManager(this);
+        this.sessionManager.setup();
 
-	@Override
-	public void loadConfig() {
-		this.getConfig().initializeOptions(Config.class);
-	}
+        ((Logger) LogManager.getRootLogger()).addFilter(this.logFilter = new LogFilter());
+    }
 
-	@Override
-	public void loadLang() {
-		this.getLangManager().loadMissing(Lang.class);
-	}
+    @Override
+    public void disable() {
+        if (this.authManager != null) {
+            this.authManager.shutdown();
+            this.authManager = null;
+        }
+        if (this.sessionManager != null) {
+            this.sessionManager.shutdown();
+            this.sessionManager = null;
+        }
+        this.logFilter.stop();
+        this.logFilter = null;
+    }
 
-	@Override
-	public boolean setupDataHandlers() {
-		this.dataHandler = DataHandler.getInstance(this);
-		this.dataHandler.setup();
-		
-		this.userManager = new UserManager(this);
-		this.userManager.setup();
-		
-		return true;
-	}
+    @Override
+    public void loadConfig() {
+        this.getConfig().initializeOptions(Config.class);
+    }
 
-	@Override
-	public void registerHooks() {
-		
-	}
+    @Override
+    public void loadLang() {
+        this.getLangManager().loadMissing(Lang.class);
+    }
 
-	@Override
-	public void registerCommands(@NotNull GeneralCommand<NexAuth> mainCommand) {
-		if (!Config.GENERAL_LOGIN_COMMANDS.get().isEmpty()) {
-			this.getCommandManager().registerCommand(new LoginCommand(this));
-		}
-		if (!Config.GENERAL_REGISTER_COMMANDS.get().isEmpty()) {
-			this.getCommandManager().registerCommand(new RegisterCommand(this));
-		}
-		this.getCommandManager().registerCommand(new ChangepasswordCommand(this));
-		this.getCommandManager().registerCommand(new SecretCommand(this));
+    @Override
+    public boolean setupDataHandlers() {
+        this.dataHandler = DataHandler.getInstance(this);
+        this.dataHandler.setup();
 
-		mainCommand.addChildren(new ReloadSubCommand<>(this, Perms.COMMAND_ADMIN));
-		if (Config.LOGIN_LOCATION_ENABLED.get()) {
-			mainCommand.addChildren(new SetLoginLocationCommand(this));
-		}
-		mainCommand.addChildren(new ChangePasswordCommand(this));
-		mainCommand.addChildren(new UnregisterCommand(this));
-		mainCommand.addChildren(new ResetSecretCommand(this));
-	}
+        this.userManager = new UserManager(this);
+        this.userManager.setup();
 
-	@Override
-	public void registerPermissions() {
-		this.registerPermissions(Perms.class);
-	}
+        return true;
+    }
 
-	@Override
-	@NotNull
-	public DataHandler getData() {
-		return this.dataHandler;
-	}
+    @Override
+    public void registerHooks() {
 
-	@NotNull
-	@Override
-	public UserManager getUserManager() {
-		return userManager;
-	}
+    }
 
-	@NotNull
-	public AuthManager getAuthManager() {
-		return this.authManager;
-	}
+    @Override
+    public void registerCommands(@NotNull GeneralCommand<NexAuth> mainCommand) {
+        if (!Config.GENERAL_LOGIN_COMMANDS.get().isEmpty()) {
+            this.getCommandManager().registerCommand(new LoginCommand(this));
+        }
+        if (!Config.GENERAL_REGISTER_COMMANDS.get().isEmpty()) {
+            this.getCommandManager().registerCommand(new RegisterCommand(this));
+        }
+        this.getCommandManager().registerCommand(new ChangepasswordCommand(this));
+        this.getCommandManager().registerCommand(new SecretCommand(this));
 
-	@NotNull
-	public SessionManager getSessionManager() {
-		return sessionManager;
-	}
+        mainCommand.addChildren(new ReloadSubCommand<>(this, Perms.COMMAND_ADMIN));
+        if (Config.LOGIN_LOCATION_ENABLED.get()) {
+            mainCommand.addChildren(new SetLoginLocationCommand(this));
+        }
+        mainCommand.addChildren(new ChangePasswordCommand(this));
+        mainCommand.addChildren(new UnregisterCommand(this));
+        mainCommand.addChildren(new ResetSecretCommand(this));
+    }
+
+    @Override
+    public void registerPermissions() {
+        this.registerPermissions(Perms.class);
+    }
+
+    @Override
+    @NotNull
+    public DataHandler getData() {
+        return this.dataHandler;
+    }
+
+    @NotNull
+    @Override
+    public UserManager getUserManager() {
+        return userManager;
+    }
+
+    @NotNull
+    public AuthManager getAuthManager() {
+        return this.authManager;
+    }
+
+    @NotNull
+    public SessionManager getSessionManager() {
+        return sessionManager;
+    }
 }

@@ -20,6 +20,7 @@ public interface LongPasswordStrategy {
      * Default base implementation
      */
     abstract class BaseLongPasswordStrategy implements LongPasswordStrategy {
+
         final int maxLength;
 
         private BaseLongPasswordStrategy(int maxLength) {
@@ -41,6 +42,7 @@ public interface LongPasswordStrategy {
      * This strategy will always throw an exception to force passwords under the max length
      */
     final class StrictMaxPasswordLengthStrategy extends BaseLongPasswordStrategy {
+
         StrictMaxPasswordLengthStrategy(int maxLength) {
             super(maxLength);
         }
@@ -55,6 +57,7 @@ public interface LongPasswordStrategy {
      * Will use sha512 to hash given password to generate fixed 64 byte length hash value
      */
     final class Sha512DerivationStrategy extends BaseLongPasswordStrategy {
+
         Sha512DerivationStrategy(int maxLength) {
             super(maxLength);
         }
@@ -87,6 +90,7 @@ public interface LongPasswordStrategy {
      * A simple strategy that just returns the provided password without changing it.
      */
     final class PassThroughStrategy implements LongPasswordStrategy {
+
         @Override
         public byte[] derive(byte[] rawPassword) {
             return rawPassword;

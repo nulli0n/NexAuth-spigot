@@ -30,6 +30,7 @@ import java.util.Objects;
  * Interface for transforming {@link Bytes}
  */
 public interface BytesTransformer {
+
     /**
      * Transform given victim in place, overwriting its internal byte array
      *
@@ -58,7 +59,7 @@ public interface BytesTransformer {
         }
 
         private final byte[] secondArray;
-        private final Mode mode;
+        private final Mode   mode;
 
         BitWiseOperatorTransformer(byte[] secondArray, Mode mode) {
             this.secondArray = Objects.requireNonNull(secondArray, "the second byte array must not be null");
@@ -103,6 +104,7 @@ public interface BytesTransformer {
      * @see <a href="https://en.wikipedia.org/wiki/Bitwise_operation#NOT">Bitwise operators: NOT</a>
      */
     final class NegateTransformer implements BytesTransformer {
+
         @Override
         public byte[] transform(byte[] currentArray, boolean inPlace) {
             byte[] out = inPlace ? currentArray : Bytes.from(currentArray).array();
@@ -126,12 +128,13 @@ public interface BytesTransformer {
      * @see <a href="https://en.wikipedia.org/wiki/Bitwise_operation#Bit_shifts">Bit shifts</a>
      */
     final class ShiftTransformer implements BytesTransformer {
+
         public enum Type {
             LEFT_SHIFT, RIGHT_SHIFT
         }
 
-        private final int shiftCount;
-        private final Type type;
+        private final int       shiftCount;
+        private final Type      type;
         private final ByteOrder byteOrder;
 
         ShiftTransformer(int shiftCount, Type type, ByteOrder byteOrder) {
@@ -165,6 +168,7 @@ public interface BytesTransformer {
      * @see <a href="https://en.wikipedia.org/wiki/Bitwise_operation#Bitwise_operators">Bitwise operation</a>
      */
     final class ConcatTransformer implements BytesTransformer {
+
         private final byte[] secondArray;
 
         ConcatTransformer(byte[] secondArrays) {
@@ -186,6 +190,7 @@ public interface BytesTransformer {
      * Reverses the internal byte array
      */
     final class ReverseTransformer implements BytesTransformer {
+
         @Override
         public byte[] transform(byte[] currentArray, boolean inPlace) {
             byte[] out = inPlace ? currentArray : Bytes.from(currentArray).array();
@@ -203,6 +208,7 @@ public interface BytesTransformer {
      * Creates a new instance with a copy of the internal byte array and all other attributes.
      */
     final class CopyTransformer implements BytesTransformer {
+
         final int offset;
         final int length;
 
@@ -235,12 +241,13 @@ public interface BytesTransformer {
      * keeping the value the same.
      */
     final class ResizeTransformer implements BytesTransformer {
+
         public enum Mode {
             RESIZE_KEEP_FROM_ZERO_INDEX,
             RESIZE_KEEP_FROM_MAX_LENGTH
         }
 
-        private final int newSize;
+        private final int  newSize;
         private final Mode mode;
 
         ResizeTransformer(int newSize, Mode mode) {
@@ -267,10 +274,12 @@ public interface BytesTransformer {
             if (mode == Mode.RESIZE_KEEP_FROM_MAX_LENGTH) {
                 if (newSize > currentArray.length) {
                     System.arraycopy(currentArray, 0, resizedArray, Math.max(0, Math.abs(newSize - currentArray.length)), Math.min(newSize, currentArray.length));
-                } else {
+                }
+                else {
                     System.arraycopy(currentArray, Math.max(0, Math.abs(newSize - currentArray.length)), resizedArray, Math.min(0, Math.abs(newSize - currentArray.length)), Math.min(newSize, currentArray.length));
                 }
-            } else {
+            }
+            else {
                 System.arraycopy(currentArray, 0, resizedArray, 0, Math.min(currentArray.length, resizedArray.length));
             }
 
@@ -287,7 +296,8 @@ public interface BytesTransformer {
      * Switches bits on specific position of an array
      */
     class BitSwitchTransformer implements BytesTransformer {
-        private final int position;
+
+        private final int     position;
         private final Boolean newBitValue;
 
         BitSwitchTransformer(int position, Boolean newBitValue) {
@@ -306,9 +316,11 @@ public interface BytesTransformer {
             int bytePosition = currentArray.length - 1 - position / 8;
             if (newBitValue == null) {
                 out[bytePosition] ^= (1 << position % 8);
-            } else if (newBitValue) {
+            }
+            else if (newBitValue) {
                 out[bytePosition] |= (1 << position % 8);
-            } else {
+            }
+            else {
                 out[bytePosition] &= ~(1 << position % 8);
             }
             return out;
@@ -324,8 +336,9 @@ public interface BytesTransformer {
      * Converts to hash
      */
     class MessageDigestTransformer implements BytesTransformer {
-        static final String ALGORITHM_MD5 = "MD5";
-        static final String ALGORITHM_SHA_1 = "SHA-1";
+
+        static final String ALGORITHM_MD5     = "MD5";
+        static final String ALGORITHM_SHA_1   = "SHA-1";
         static final String ALGORITHM_SHA_256 = "SHA-256";
 
         private final MessageDigest messageDigest;
@@ -333,7 +346,8 @@ public interface BytesTransformer {
         MessageDigestTransformer(String digestName) {
             try {
                 this.messageDigest = MessageDigest.getInstance(digestName);
-            } catch (NoSuchAlgorithmException e) {
+            }
+            catch (NoSuchAlgorithmException e) {
                 throw new IllegalArgumentException("could not get message digest algorithm " + digestName, e);
             }
         }

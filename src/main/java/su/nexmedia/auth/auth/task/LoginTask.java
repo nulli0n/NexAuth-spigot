@@ -9,35 +9,35 @@ import su.nexmedia.engine.api.server.AbstractTask;
 
 public class LoginTask extends AbstractTask<NexAuth> {
 
-	private int counter;
-	
-	public LoginTask(@NotNull NexAuth plugin) {
-		super(plugin, 1, false);
-		this.counter = 0;
-	}
+    private int counter;
 
-	@Override
-	public void action() {
-		AuthPlayer.getPlayers().stream().filter(AuthPlayer::isInLogin).forEach(authPlayer -> {
-			if (authPlayer.isLoginExpired()) {
-				authPlayer.getPlayer().kickPlayer(plugin.getMessage(Lang.LOGIN_ERROR_TIMEOUT).getLocalized());
-				return;
-			}
+    public LoginTask(@NotNull NexAuth plugin) {
+        super(plugin, 1, false);
+        this.counter = 0;
+    }
 
-			int notifyInterval = Config.LOGIN_NOTIFY_INTERVAL.get();
-			if (notifyInterval > 0 && this.counter % notifyInterval == 0) {
-				if (authPlayer.isRegistered()) {
-					plugin.getMessage(Lang.LOGIN_NOTIFY_LOG_IN).send(authPlayer.getPlayer());
-				}
-				else {
-					plugin.getMessage(Lang.LOGIN_NOTIFY_REGISTER).send(authPlayer.getPlayer());
-				}
-			}
-		});
+    @Override
+    public void action() {
+        AuthPlayer.getPlayers().stream().filter(AuthPlayer::isInLogin).forEach(authPlayer -> {
+            if (authPlayer.isLoginExpired()) {
+                authPlayer.getPlayer().kickPlayer(plugin.getMessage(Lang.LOGIN_ERROR_TIMEOUT).getLocalized());
+                return;
+            }
 
-		if (this.counter++ >= Config.LOGIN_NOTIFY_INTERVAL.get()) {
-			this.counter = 0;
-		}
-	}
+            int notifyInterval = Config.LOGIN_NOTIFY_INTERVAL.get();
+            if (notifyInterval > 0 && this.counter % notifyInterval == 0) {
+                if (authPlayer.isRegistered()) {
+                    plugin.getMessage(Lang.LOGIN_NOTIFY_LOG_IN).send(authPlayer.getPlayer());
+                }
+                else {
+                    plugin.getMessage(Lang.LOGIN_NOTIFY_REGISTER).send(authPlayer.getPlayer());
+                }
+            }
+        });
+
+        if (this.counter++ >= Config.LOGIN_NOTIFY_INTERVAL.get()) {
+            this.counter = 0;
+        }
+    }
 
 }

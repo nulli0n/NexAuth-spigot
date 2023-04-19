@@ -13,7 +13,7 @@ import java.util.Map;
 public class SetLoginLocationCommand extends AbstractCommand<NexAuth> {
 
     public SetLoginLocationCommand(@NotNull NexAuth plugin) {
-        super(plugin, new String[] {"setloginlocation", "setloginloc"}, Perms.COMMAND_ADMIN);
+        super(plugin, new String[]{"setloginlocation", "setloginloc"}, Perms.COMMAND_ADMIN);
     }
 
     @Override

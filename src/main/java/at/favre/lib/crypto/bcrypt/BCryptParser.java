@@ -9,7 +9,7 @@ import static at.favre.lib.crypto.bcrypt.BCrypt.SEPARATOR;
 
 /**
  * A simple parser which is able to parse Modular Crypt Format specifically for bcrypt.
- *
+ * <p>
  * It will gather the parts of the format:
  * <ul>
  * <li>version</li>
@@ -17,7 +17,7 @@ import static at.favre.lib.crypto.bcrypt.BCrypt.SEPARATOR;
  * <li>salt (decoded)</li>
  * <li>hash (decoded)</li>
  * </ul>
- * 
+ * <p>
  * see: {@link BCryptFormatter}
  * see: https://passlib.readthedocs.io/en/stable/modular_crypt_format.html
  */
@@ -37,7 +37,7 @@ public interface BCryptParser {
      */
     final class Default implements BCryptParser {
 
-        private final Charset defaultCharset;
+        private final Charset        defaultCharset;
         private final Radix64Encoder encoder;
 
         Default(Radix64Encoder encoder, Charset defaultCharset) {
@@ -90,7 +90,8 @@ public interface BCryptParser {
             int parsedCostFactor;
             try {
                 parsedCostFactor = Integer.parseInt(new String(costBytes, defaultCharset));
-            } catch (NumberFormatException e) {
+            }
+            catch (NumberFormatException e) {
                 throw new IllegalBCryptFormatException("cannot parse cost factor '" + new String(costBytes, defaultCharset) + "'");
             }
 

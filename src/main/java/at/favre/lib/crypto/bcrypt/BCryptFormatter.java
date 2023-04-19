@@ -57,7 +57,7 @@ public interface BCryptFormatter {
     final class Default implements BCryptFormatter {
 
         private final Radix64Encoder encoder;
-        private final Charset defaultCharset;
+        private final Charset        defaultCharset;
 
         public Default(Radix64Encoder encoder, Charset defaultCharset) {
             this.encoder = encoder;
@@ -72,7 +72,7 @@ public interface BCryptFormatter {
 
             try {
                 ByteBuffer byteBuffer = ByteBuffer.allocate(hashData.version.versionIdentifier.length +
-                        costFactorBytes.length + 3 + saltEncoded.length + hashEncoded.length);
+                    costFactorBytes.length + 3 + saltEncoded.length + hashEncoded.length);
                 byteBuffer.put(BCrypt.SEPARATOR);
                 byteBuffer.put(hashData.version.versionIdentifier);
                 byteBuffer.put(BCrypt.SEPARATOR);
@@ -81,7 +81,8 @@ public interface BCryptFormatter {
                 byteBuffer.put(saltEncoded);
                 byteBuffer.put(hashEncoded);
                 return byteBuffer.array();
-            } finally {
+            }
+            finally {
                 Bytes.wrapNullSafe(saltEncoded).mutable().secureWipe();
                 Bytes.wrapNullSafe(hashEncoded).mutable().secureWipe();
                 Bytes.wrapNullSafe(costFactorBytes).mutable().secureWipe();

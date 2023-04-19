@@ -756,10 +756,10 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
 
     /* OBJECT ****************************************************************************************************/
 
-    private final byte[] byteArray;
-    private final ByteOrder byteOrder;
-    private final BytesFactory factory;
-    private transient int hashCodeCache;
+    private final     byte[]       byteArray;
+    private final     ByteOrder    byteOrder;
+    private final     BytesFactory factory;
+    private transient int          hashCodeCache;
 
     Bytes(byte[] byteArray, ByteOrder byteOrder) {
         this(byteArray, byteOrder, new Factory());
@@ -1372,7 +1372,8 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
         Util.Validation.checkIndexBounds(lengthBit(), bitIndex, 1, "bit");
         if (byteOrder == ByteOrder.BIG_ENDIAN) {
             return ((byteAt(length() - 1 - (bitIndex / 8)) >>> bitIndex % 8) & 1) != 0;
-        } else {
+        }
+        else {
             return ((byteAt(bitIndex / 8) >>> bitIndex % 8) & 1) != 0;
         }
     }
@@ -1538,7 +1539,8 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
     public ReadOnlyBytes readOnly() {
         if (isReadOnly()) {
             return (ReadOnlyBytes) this;
-        } else {
+        }
+        else {
             return new ReadOnlyBytes(internalArray(), byteOrder);
         }
     }
@@ -1570,7 +1572,8 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
     public MutableBytes mutable() {
         if (this instanceof MutableBytes) {
             return (MutableBytes) this;
-        } else {
+        }
+        else {
             return new MutableBytes(array(), byteOrder);
         }
     }
@@ -1857,7 +1860,8 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
     public BigInteger toBigInteger() {
         if (byteOrder == ByteOrder.LITTLE_ENDIAN) {
             return new BigInteger(new BytesTransformer.ReverseTransformer().transform(internalArray(), false));
-        } else {
+        }
+        else {
             return new BigInteger(internalArray());
         }
     }
@@ -2228,6 +2232,7 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
      * Internal factory for {@link Bytes} instances
      */
     private static class Factory implements BytesFactory {
+
         @Override
         public Bytes wrap(byte[] array, ByteOrder byteOrder) {
             return new Bytes(array, byteOrder);

@@ -10,7 +10,7 @@ public class AuthPlayerLoginEvent extends Event {
 
     private static final HandlerList handlers = new HandlerList();
 
-    private final Player player;
+    private final Player   player;
     private final AuthUser user;
 
     public AuthPlayerLoginEvent(boolean async, @NotNull Player player, @NotNull AuthUser user) {

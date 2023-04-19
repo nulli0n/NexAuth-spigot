@@ -59,7 +59,7 @@ public class RestrictionListener extends AbstractListener<NexAuth> {
 
         AuthPlayer authPlayer = AuthPlayer.getOrCreate(player);
         if (authPlayer.isLogged()) return;
-        
+
         String msg = e.getMessage();
         String inputCmd = StringUtil.extractCommandName(msg);
 

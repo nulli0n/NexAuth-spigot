@@ -37,6 +37,7 @@ final class Util {
      * Util methods related general purpose byte utility.
      */
     static final class Byte {
+
         private Byte() {
         }
 
@@ -91,7 +92,8 @@ final class Util {
         static byte[] concatVararg(byte firstByte, byte[] moreBytes) {
             if (moreBytes == null) {
                 return new byte[]{firstByte};
-            } else {
+            }
+            else {
                 return concat(new byte[]{firstByte}, moreBytes);
             }
         }
@@ -305,7 +307,8 @@ final class Util {
                     sourceIndex = i + offsetBytes;
                     if (sourceIndex >= byteArray.length) {
                         byteArray[i] = 0;
-                    } else {
+                    }
+                    else {
                         byte src = byteArray[sourceIndex];
                         byte dst = (byte) (src << shiftMod);
                         if (sourceIndex + 1 < byteArray.length) {
@@ -314,12 +317,14 @@ final class Util {
                         byteArray[i] = dst;
                     }
                 }
-            } else {
+            }
+            else {
                 for (int i = byteArray.length - 1; i >= 0; i--) {
                     sourceIndex = i - offsetBytes;
                     if (sourceIndex < 0) {
                         byteArray[i] = 0;
-                    } else {
+                    }
+                    else {
                         byte src = byteArray[sourceIndex];
                         byte dst = (byte) (src << shiftMod);
                         if (sourceIndex - 1 >= 0) {
@@ -361,7 +366,8 @@ final class Util {
                     sourceIndex = i - offsetBytes;
                     if (sourceIndex < 0) {
                         byteArray[i] = 0;
-                    } else {
+                    }
+                    else {
                         byte src = byteArray[sourceIndex];
                         byte dst = (byte) ((0xff & src) >>> shiftMod);
                         if (sourceIndex - 1 >= 0) {
@@ -370,12 +376,14 @@ final class Util {
                         byteArray[i] = dst;
                     }
                 }
-            } else {
+            }
+            else {
                 for (int i = 0; i < byteArray.length; i++) {
                     sourceIndex = i + offsetBytes;
                     if (sourceIndex >= byteArray.length) {
                         byteArray[i] = 0;
-                    } else {
+                    }
+                    else {
                         byte src = byteArray[sourceIndex];
                         byte dst = (byte) ((0xff & src) >>> shiftMod);
                         if (sourceIndex + 1 < byteArray.length) {
@@ -458,6 +466,7 @@ final class Util {
      * Util method related converting byte arrays to other types.
      */
     static final class Converter {
+
         private Converter() {
         }
 
@@ -774,7 +783,8 @@ final class Util {
                     return compacted;
                 }
                 return charBuffer.array();
-            } catch (CharacterCodingException e) {
+            }
+            catch (CharacterCodingException e) {
                 throw new IllegalStateException(e);
             }
         }
@@ -942,6 +952,7 @@ final class Util {
      * Util method related to Object class methods.
      */
     static final class Obj {
+
         private Obj() {
         }
 
@@ -1016,9 +1027,11 @@ final class Util {
             String preview;
             if (bytes.isEmpty()) {
                 preview = "";
-            } else if (bytes.length() > 8) {
+            }
+            else if (bytes.length() > 8) {
                 preview = "(0x" + bytes.copy(0, 4).encodeHex() + "..." + bytes.copy(bytes.length() - 4, 4).encodeHex() + ")";
-            } else {
+            }
+            else {
                 preview = "(0x" + bytes.encodeHex() + ")";
             }
 
@@ -1030,6 +1043,7 @@ final class Util {
      * Util method related check and validate byte arrays.
      */
     static final class Validation {
+
         private Validation() {
         }
 
@@ -1099,6 +1113,7 @@ final class Util {
      * Util method related file operations.
      */
     static final class File {
+
         private static final int BUF_SIZE = 0x1000; // 4K
 
         private File() {
@@ -1131,7 +1146,8 @@ final class Util {
                     out.write(buf, 0, r);
                 }
                 return out.toByteArray();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new IllegalStateException("could not read from input stream", e);
             }
         }
@@ -1154,7 +1170,8 @@ final class Util {
                     remaining -= buf.length;
                 }
                 return out.toByteArray();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new IllegalStateException("could not read from data input", e);
             }
         }
@@ -1170,7 +1187,8 @@ final class Util {
 
             try {
                 return Files.readAllBytes(file.toPath());
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 throw new IllegalStateException("could not read from file", e);
             }
         }
@@ -1188,7 +1206,8 @@ final class Util {
             try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {
                 raf.seek(offset);
                 return readFromDataInput(raf, length);
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new IllegalStateException("could not read from random access file", e);
             }
         }
@@ -1202,11 +1221,12 @@ final class Util {
      * A simple iterator for the bytes class, which does not support remove
      */
     static final class BytesIterator implements Iterator<java.lang.Byte> {
+
         private final byte[] array;
         /**
          * Index of element to be returned by subsequent call to next.
          */
-        private int cursor = 0;
+        private       int    cursor = 0;
 
         BytesIterator(byte[] array) {
             this.array = array;
@@ -1224,7 +1244,8 @@ final class Util {
                 java.lang.Byte next = array[i];
                 cursor = i + 1;
                 return next;
-            } catch (IndexOutOfBoundsException e) {
+            }
+            catch (IndexOutOfBoundsException e) {
                 throw new NoSuchElementException();
             }
         }

@@ -43,11 +43,12 @@ public interface BytesValidator {
      * Validates for specific array length
      */
     final class Length implements BytesValidator {
+
         enum Mode {
             SMALLER_OR_EQ_THAN, GREATER_OR_EQ_THAN, EXACT
         }
 
-        private final int refLength;
+        private final int  refLength;
         private final Mode mode;
 
         public Length(int refLength, Mode mode) {
@@ -73,6 +74,7 @@ public interface BytesValidator {
      * Checks if a byte array contains only the same value
      */
     final class IdenticalContent implements BytesValidator {
+
         private final byte refByte;
 
         enum Mode {
@@ -108,7 +110,7 @@ public interface BytesValidator {
      */
     final class PrePostFix implements BytesValidator {
 
-        private final byte[] pfix;
+        private final byte[]  pfix;
         private final boolean startsWith;
 
         public PrePostFix(boolean startsWith, byte... pfix) {
@@ -138,6 +140,7 @@ public interface BytesValidator {
      * Logical operations over multiple validators
      */
     final class Logical implements BytesValidator {
+
         enum Operator {
             OR, AND, NOT
         }

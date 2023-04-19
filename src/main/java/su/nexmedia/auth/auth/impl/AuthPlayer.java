@@ -15,13 +15,13 @@ public final class AuthPlayer {
 
     private static final Map<Player, AuthPlayer> PLAYER_MAP = new WeakHashMap<>();
 
-    private final Player player;
-    private final String ip;
-    private final AuthUser data;
+    private final Player      player;
+    private final String      ip;
+    private final AuthUser    data;
     private final AuthSession session;
 
     private PlayerState state;
-    private long loginExpireDate;
+    private long        loginExpireDate;
 
     private String tempPasswordHash;
     private String tempSecretInput;
