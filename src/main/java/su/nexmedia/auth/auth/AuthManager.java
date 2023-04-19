@@ -174,6 +174,8 @@ public class AuthManager extends AbstractManager<NexAuth> {
         AuthPlayer authPlayer = AuthPlayer.getOrCreate(player);
         authPlayer.setState(PlayerState.IN_LOGIN);
         authPlayer.updateLoginExpireTime();
+        authPlayer.setTempPasswordHash(null);
+        authPlayer.setTempSecretInput(null);
 
         if (!authPlayer.getData().isRegistered()) {
             plugin.getMessage(Lang.LOGIN_PROMPT_REGISTER).send(player);
