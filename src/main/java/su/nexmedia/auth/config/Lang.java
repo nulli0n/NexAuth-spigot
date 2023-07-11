@@ -2,17 +2,10 @@ package su.nexmedia.auth.config;
 
 import org.bukkit.Sound;
 import su.nexmedia.auth.Placeholders;
+import su.nexmedia.engine.api.lang.LangColors;
 import su.nexmedia.engine.api.lang.LangKey;
 
-public class Lang {
-
-    private static final String DARK_GRAY = "#6c6c62";
-    private static final String LIME      = "#b3ff5d";
-    private static final String GRAY      = "#d4d9d8";
-    private static final String GREEN     = "#aefd5e";
-    private static final String YELLOW    = "#fdf35e";
-    private static final String ORANGE    = "#fdba5e";
-    private static final String RED       = "#fd5e5e";
+public class Lang implements LangColors {
 
     public static final LangKey COMMAND_LOGIN_USAGE = LangKey.of("Command.Login.Usage", "<password>");
     public static final LangKey COMMAND_LOGIN_DESC  = LangKey.of("Command.Login.Desc", "Login into the server.");
@@ -34,7 +27,7 @@ public class Lang {
 
     public static final LangKey COMMAND_ADMIN_CHANGEPASSWORD_USAGE = LangKey.of("Command.Admin.Changepassword.Usage", "<player> <password>");
     public static final LangKey COMMAND_ADMIN_CHANGEPASSWORD_DESC  = LangKey.of("Command.Admin.Changepassword.Desc", "Change player's current password.");
-    public static final LangKey COMMAND_ADMIN_CHANGEPASSWORD_DONE  = LangKey.of("Command.Admin.Changepassword.Done", "Changed " + GREEN + Placeholders.Player.NAME + GRAY + "'s password.");
+    public static final LangKey COMMAND_ADMIN_CHANGEPASSWORD_DONE  = LangKey.of("Command.Admin.Changepassword.Done", "Changed " + GREEN + Placeholders.PLAYER_NAME + GRAY + "'s password.");
 
     public static final LangKey COMMAND_ADMIN_UNREGISTER_USAGE = LangKey.of("Command.Admin.Unregister.Usage", "<user>");
     public static final LangKey COMMAND_ADMIN_UNREGISTER_DESC  = LangKey.of("Command.Admin.Unregister.Desc", "Unregister specified player.");
@@ -43,7 +36,7 @@ public class Lang {
 
     public static final LangKey COMMAND_ADMIN_RESETSECRET_USAGE = LangKey.of("Command.Admin.ResetSecret.Usage", "<player>");
     public static final LangKey COMMAND_ADMIN_RESETSECRET_DESC  = LangKey.of("Command.Admin.ResetSecret.Desc", "Reset player's secret question.");
-    public static final LangKey COMMAND_ADMIN_RESETSECRET_DONE  = LangKey.of("Command.Admin.ResetSecret.Done", "Reset secret question for " + GREEN + Placeholders.Player.NAME + GRAY + ".");
+    public static final LangKey COMMAND_ADMIN_RESETSECRET_DONE  = LangKey.of("Command.Admin.ResetSecret.Done", "Reset secret question for " + GREEN + Placeholders.PLAYER_NAME + GRAY + ".");
 
     public static final LangKey COMMAND_ADMIN_SETLOGINLOCATION_USAGE = LangKey.of("Command.Admin.SetLoginLocation.Usage", "");
     public static final LangKey COMMAND_ADMIN_SETLOGINLOCATIOH_DESC  = LangKey.of("Command.Admin.SetLoginLocation.Desc", "Set login location to your position.");

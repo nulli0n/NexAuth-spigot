@@ -7,8 +7,7 @@ import su.nexmedia.auth.NexAuth;
 import su.nexmedia.auth.Perms;
 import su.nexmedia.auth.config.Lang;
 import su.nexmedia.engine.api.command.AbstractCommand;
-
-import java.util.Map;
+import su.nexmedia.engine.api.command.CommandResult;
 
 public class SetLoginLocationCommand extends AbstractCommand<NexAuth> {
 
@@ -34,7 +33,7 @@ public class SetLoginLocationCommand extends AbstractCommand<NexAuth> {
     }
 
     @Override
-    protected void onExecute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args, @NotNull Map<String, String> flags) {
+    public void onExecute(@NotNull CommandSender sender, @NotNull CommandResult result) {
         Player player = (Player) sender;
         this.plugin.getAuthManager().setLoginLocation(player.getLocation());
         this.plugin.getMessage(Lang.COMMAND_ADMIN_SETLOGINLOCATION_DONE).send(sender);

@@ -7,13 +7,13 @@ import su.nexmedia.auth.NexAuth;
 import su.nexmedia.auth.Perms;
 import su.nexmedia.auth.Placeholders;
 import su.nexmedia.auth.auth.AuthUtils;
-import su.nexmedia.auth.data.impl.AuthUser;
 import su.nexmedia.auth.config.Lang;
+import su.nexmedia.auth.data.impl.AuthUser;
 import su.nexmedia.engine.api.command.AbstractCommand;
+import su.nexmedia.engine.api.command.CommandResult;
 import su.nexmedia.engine.utils.CollectionsUtil;
 
 import java.util.List;
-import java.util.Map;
 
 public class ChangePasswordCommand extends AbstractCommand<NexAuth> {
 
@@ -48,23 +48,23 @@ public class ChangePasswordCommand extends AbstractCommand<NexAuth> {
     }
 
     @Override
-    protected void onExecute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args, @NotNull Map<String, String> flags) {
-        if (args.length < 3) {
+    public void onExecute(@NotNull CommandSender sender, @NotNull CommandResult result) {
+        if (result.length() < 3) {
             this.printUsage(sender);
             return;
         }
 
-        AuthUser user = plugin.getUserManager().getUserData(args[1]);
+        AuthUser user = plugin.getUserManager().getUserData(result.getArg(1));
         if (user == null) {
             this.errorPlayer(sender);
             return;
         }
 
-        String password = AuthUtils.finePassword(args[2]);
+        String password = AuthUtils.finePassword(result.getArg(2));
         user.setPassword(password, user.getEncryptionType());
 
         plugin.getMessage(Lang.COMMAND_ADMIN_CHANGEPASSWORD_DONE)
-            .replace(Placeholders.Player.NAME, user.getName())
+            .replace(Placeholders.PLAYER_NAME, user.getName())
             .send(sender);
     }
 }

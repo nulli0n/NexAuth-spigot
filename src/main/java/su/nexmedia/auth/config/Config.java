@@ -89,10 +89,6 @@ public class Config {
     public static final JOption<Integer> SECURITY_SESSION_AUTH_TIMEOUT = JOption.create("Security.Session.Authorization_Timeout", 7200,
         "Sets session authorization timeout time (in seconds) when player will have to enter password again.");
 
-    //public static boolean loginCountryEnabled;
-    //public static boolean loginCountryReverse;
-    //public static Set<String> loginCountryList;
-
     public static final JOption<Boolean> SECURITY_CHECK_NAME_CASE = JOption.create("Security.Check_Name_Case", true,
         "When 'true', prevents players from joining the sever if their name case does not matches name case in database.",
         "Example: If player registered with the name 'ThePlayer', all other variants like 'theplayer', 'THEPLAYER' will be disallowed.",

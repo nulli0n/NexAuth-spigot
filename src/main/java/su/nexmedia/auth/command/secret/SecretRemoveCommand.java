@@ -10,8 +10,7 @@ import su.nexmedia.auth.auth.impl.AuthPlayer;
 import su.nexmedia.auth.auth.impl.PlayerState;
 import su.nexmedia.auth.config.Lang;
 import su.nexmedia.engine.api.command.AbstractCommand;
-
-import java.util.Map;
+import su.nexmedia.engine.api.command.CommandResult;
 
 public class SecretRemoveCommand extends AbstractCommand<NexAuth> {
 
@@ -37,7 +36,7 @@ public class SecretRemoveCommand extends AbstractCommand<NexAuth> {
     }
 
     @Override
-    protected void onExecute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args, @NotNull Map<String, String> flags) {
+    public void onExecute(@NotNull CommandSender sender, @NotNull CommandResult result) {
         Player player = (Player) sender;
         AuthPlayer authPlayer = AuthPlayer.getOrCreate(player);
         if (!authPlayer.isRegistered() || !authPlayer.isLogged()) return;

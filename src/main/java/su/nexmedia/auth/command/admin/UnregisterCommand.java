@@ -5,13 +5,13 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import su.nexmedia.auth.NexAuth;
 import su.nexmedia.auth.Perms;
-import su.nexmedia.auth.data.impl.AuthUser;
 import su.nexmedia.auth.config.Lang;
+import su.nexmedia.auth.data.impl.AuthUser;
 import su.nexmedia.engine.api.command.AbstractCommand;
+import su.nexmedia.engine.api.command.CommandResult;
 import su.nexmedia.engine.utils.CollectionsUtil;
 
 import java.util.List;
-import java.util.Map;
 
 public class UnregisterCommand extends AbstractCommand<NexAuth> {
 
@@ -46,13 +46,13 @@ public class UnregisterCommand extends AbstractCommand<NexAuth> {
     }
 
     @Override
-    protected void onExecute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args, @NotNull Map<String, String> flags) {
-        if (args.length != 2) {
+    public void onExecute(@NotNull CommandSender sender, @NotNull CommandResult result) {
+        if (result.length() != 2) {
             this.printUsage(sender);
             return;
         }
 
-        String pName = args[1];
+        String pName = result.getArg(1);
         AuthUser user = plugin.getUserManager().getUserData(pName);
         if (user == null) {
             this.errorPlayer(sender);

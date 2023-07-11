@@ -5,10 +5,9 @@ import org.jetbrains.annotations.NotNull;
 import su.nexmedia.auth.NexAuth;
 import su.nexmedia.auth.Perms;
 import su.nexmedia.auth.config.Lang;
+import su.nexmedia.engine.api.command.CommandResult;
 import su.nexmedia.engine.api.command.GeneralCommand;
 import su.nexmedia.engine.command.list.HelpSubCommand;
-
-import java.util.Map;
 
 public class SecretCommand extends GeneralCommand<NexAuth> {
 
@@ -37,7 +36,7 @@ public class SecretCommand extends GeneralCommand<NexAuth> {
     }
 
     @Override
-    protected void onExecute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args, @NotNull Map<String, String> flags) {
+    public void onExecute(@NotNull CommandSender sender, @NotNull CommandResult result) {
 
     }
 }

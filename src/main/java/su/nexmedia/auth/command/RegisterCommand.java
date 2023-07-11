@@ -7,11 +7,11 @@ import su.nexmedia.auth.NexAuth;
 import su.nexmedia.auth.Perms;
 import su.nexmedia.auth.config.Config;
 import su.nexmedia.auth.config.Lang;
+import su.nexmedia.engine.api.command.CommandResult;
 import su.nexmedia.engine.api.command.GeneralCommand;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class RegisterCommand extends GeneralCommand<NexAuth> {
 
@@ -46,13 +46,13 @@ public class RegisterCommand extends GeneralCommand<NexAuth> {
     }
 
     @Override
-    public void onExecute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args, @NotNull Map<String, String> flags) {
-        if (args.length < 1) {
+    public void onExecute(@NotNull CommandSender sender, @NotNull CommandResult result) {
+        if (result.length() < 1) {
             this.printUsage(sender);
             return;
         }
 
         Player player = (Player) sender;
-        plugin.getAuthManager().tryRegister(player, args[0]);
+        plugin.getAuthManager().tryRegister(player, result.getArg(0));
     }
 }

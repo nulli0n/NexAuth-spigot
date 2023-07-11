@@ -6,9 +6,8 @@ import org.jetbrains.annotations.NotNull;
 import su.nexmedia.auth.NexAuth;
 import su.nexmedia.auth.Perms;
 import su.nexmedia.auth.config.Lang;
+import su.nexmedia.engine.api.command.CommandResult;
 import su.nexmedia.engine.api.command.GeneralCommand;
-
-import java.util.Map;
 
 public class ChangepasswordCommand extends GeneralCommand<NexAuth> {
 
@@ -34,15 +33,15 @@ public class ChangepasswordCommand extends GeneralCommand<NexAuth> {
     }
 
     @Override
-    protected void onExecute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args, @NotNull Map<String, String> flags) {
-        if (args.length != 2) {
+    public void onExecute(@NotNull CommandSender sender, @NotNull CommandResult result) {
+        if (result.length() < 2) {
             this.printUsage(sender);
             return;
         }
 
         Player player = (Player) sender;
-        String oldPass = args[0];
-        String newPass = args[1];
+        String oldPass = result.getArg(0);
+        String newPass = result.getArg(1);
         plugin.getAuthManager().changepassword(player, oldPass, newPass);
     }
 }
