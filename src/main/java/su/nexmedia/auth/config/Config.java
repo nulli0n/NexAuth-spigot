@@ -4,6 +4,7 @@ import su.nexmedia.auth.Placeholders;
 import su.nexmedia.auth.api.encryption.EncryptionType;
 import su.nexmedia.engine.api.config.JOption;
 import su.nexmedia.engine.utils.CollectionsUtil;
+import su.nexmedia.engine.utils.Colorizer;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,7 +43,8 @@ public class Config {
             "",
             "&7You can join again in: &e" + Placeholders.GENERIC_TIME
         ),
-        "Sets the message to display for players banned for suspicious activity.");
+        "Sets the message to display for players banned for suspicious activity."
+    ).mapReader(Colorizer::apply);
 
     public static final JOption<Boolean> GENERAL_LOG_ACTIONS = JOption.create("General.Log_Actions", true,
         "Sets whether plugin should log user actions: login, register, secret question, etc.");

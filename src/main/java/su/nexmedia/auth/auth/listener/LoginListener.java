@@ -47,19 +47,19 @@ public class LoginListener extends AbstractListener<NexAuth> {
         String userName = e.getName();
 
         if (userName.length() < Config.SECURITY_NAME_MIN_LENGTH.get()) {
-            String msg = plugin.getMessage(Lang.JOIN_ERROR_NAME_SHORT).replace(Placeholders.GENERIC_AMOUNT, Config.SECURITY_NAME_MIN_LENGTH).getLocalized();
+            String msg = plugin.getMessage(Lang.JOIN_ERROR_NAME_SHORT).replace(Placeholders.GENERIC_AMOUNT, Config.SECURITY_NAME_MIN_LENGTH.get()).getLocalized();
             e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, msg);
             return;
         }
 
         if (userName.length() > Config.SECURITY_NAME_MAX_LENGTH.get()) {
-            String msg = plugin.getMessage(Lang.JOIN_ERROR_NAME_LONG).replace(Placeholders.GENERIC_AMOUNT, Config.SECURITY_NAME_MAX_LENGTH).getLocalized();
+            String msg = plugin.getMessage(Lang.JOIN_ERROR_NAME_LONG).replace(Placeholders.GENERIC_AMOUNT, Config.SECURITY_NAME_MAX_LENGTH.get()).getLocalized();
             e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, msg);
             return;
         }
 
         if (!userName.matches(Config.SECURITY_NAME_REGEX.get())) {
-            String msg = plugin.getMessage(Lang.JOIN_ERROR_NAME_INVALID_CHARS).replace(Placeholders.GENERIC_PATTERN, Config.SECURITY_NAME_REGEX).getLocalized();
+            String msg = plugin.getMessage(Lang.JOIN_ERROR_NAME_INVALID_CHARS).replace(Placeholders.GENERIC_PATTERN, Config.SECURITY_NAME_REGEX.get()).getLocalized();
             e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, msg);
             return;
         }

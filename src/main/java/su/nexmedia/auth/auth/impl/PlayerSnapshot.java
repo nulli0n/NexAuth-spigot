@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import su.nexmedia.auth.config.Config;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -57,7 +58,9 @@ public class PlayerSnapshot {
         PlayerSnapshot snapshot = SNAPSHOTS.remove(player.getUniqueId());
         if (snapshot == null) return;
 
-        player.teleport(snapshot.getLocation());
+        if (Config.LOGIN_LOCATION_ENABLED.get()) {
+            player.teleport(snapshot.getLocation());
+        }
         player.setGameMode(snapshot.getGameMode());
 
         if (player.getGameMode() == GameMode.CREATIVE) {

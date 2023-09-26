@@ -17,6 +17,7 @@ import su.nexmedia.auth.NexAuth;
 import su.nexmedia.auth.auth.impl.AuthPlayer;
 import su.nexmedia.auth.config.Config;
 import su.nexmedia.engine.api.manager.AbstractListener;
+import su.nexmedia.engine.utils.EntityUtil;
 import su.nexmedia.engine.utils.StringUtil;
 
 public class RestrictionListener extends AbstractListener<NexAuth> {
@@ -30,6 +31,8 @@ public class RestrictionListener extends AbstractListener<NexAuth> {
     }
 
     private boolean cancelEvent(@NotNull Player player) {
+        if (EntityUtil.isNPC(player)) return false;
+
         AuthPlayer authPlayer = AuthPlayer.getOrCreate(player);
         return authPlayer.isInLogin() || authPlayer.isSecretManaging();
     }
