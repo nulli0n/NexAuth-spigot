@@ -421,7 +421,7 @@ public class AuthManager extends AbstractManager<NexAuth> {
         }
 
         authPlayer.setState(PlayerState.LOGGED_IN);
-        user.saveData(this.plugin);
+        this.plugin.getUserManager().saveUser(user);
         return true;
     }
 

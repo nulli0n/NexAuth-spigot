@@ -2,10 +2,11 @@ package su.nexmedia.auth.config;
 
 import org.bukkit.Sound;
 import su.nexmedia.auth.Placeholders;
-import su.nexmedia.engine.api.lang.LangColors;
 import su.nexmedia.engine.api.lang.LangKey;
 
-public class Lang implements LangColors {
+import static su.nexmedia.engine.utils.Colors.*;
+
+public class Lang {
 
     public static final LangKey COMMAND_LOGIN_USAGE = LangKey.of("Command.Login.Usage", "<password>");
     public static final LangKey COMMAND_LOGIN_DESC  = LangKey.of("Command.Login.Desc", "Login into the server.");
