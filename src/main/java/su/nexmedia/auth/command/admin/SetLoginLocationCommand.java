@@ -13,23 +13,9 @@ public class SetLoginLocationCommand extends AbstractCommand<NexAuth> {
 
     public SetLoginLocationCommand(@NotNull NexAuth plugin) {
         super(plugin, new String[]{"setloginlocation", "setloginloc"}, Perms.COMMAND_ADMIN);
-    }
-
-    @Override
-    @NotNull
-    public String getUsage() {
-        return plugin.getMessage(Lang.COMMAND_ADMIN_SETLOGINLOCATION_USAGE).getLocalized();
-    }
-
-    @Override
-    @NotNull
-    public String getDescription() {
-        return plugin.getMessage(Lang.COMMAND_ADMIN_SETLOGINLOCATIOH_DESC).getLocalized();
-    }
-
-    @Override
-    public boolean isPlayerOnly() {
-        return true;
+        this.setDescription(plugin.getMessage(Lang.COMMAND_ADMIN_SETLOGINLOCATIOH_DESC));
+        this.setUsage(plugin.getMessage(Lang.COMMAND_ADMIN_SETLOGINLOCATION_USAGE));
+        this.setPlayerOnly(true);
     }
 
     @Override

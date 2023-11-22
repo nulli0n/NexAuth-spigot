@@ -17,23 +17,9 @@ public class LoginCommand extends GeneralCommand<NexAuth> {
 
     public LoginCommand(@NotNull NexAuth plugin) {
         super(plugin, Config.GENERAL_LOGIN_COMMANDS.get().toArray(new String[0]), Perms.COMMAND_LOGIN);
-    }
-
-    @Override
-    @NotNull
-    public String getUsage() {
-        return plugin.getMessage(Lang.COMMAND_LOGIN_USAGE).getLocalized();
-    }
-
-    @Override
-    @NotNull
-    public String getDescription() {
-        return plugin.getMessage(Lang.COMMAND_LOGIN_DESC).getLocalized();
-    }
-
-    @Override
-    public boolean isPlayerOnly() {
-        return true;
+        this.setDescription(plugin.getMessage(Lang.COMMAND_LOGIN_DESC));
+        this.setUsage(plugin.getMessage(Lang.COMMAND_LOGIN_USAGE));
+        this.setPlayerOnly(true);
     }
 
     @Override

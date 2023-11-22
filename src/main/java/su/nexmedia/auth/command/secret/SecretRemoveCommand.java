@@ -16,23 +16,9 @@ public class SecretRemoveCommand extends AbstractCommand<NexAuth> {
 
     public SecretRemoveCommand(@NotNull NexAuth plugin) {
         super(plugin, new String[]{"remove"}, Perms.SECRET);
-    }
-
-    @Override
-    @NotNull
-    public String getUsage() {
-        return plugin.getMessage(Lang.COMMAND_SECRET_REMOVE_USAGE).getLocalized();
-    }
-
-    @Override
-    @NotNull
-    public String getDescription() {
-        return plugin.getMessage(Lang.COMMAND_SECRET_REMOVE_DESC).getLocalized();
-    }
-
-    @Override
-    public boolean isPlayerOnly() {
-        return true;
+        this.setDescription(plugin.getMessage(Lang.COMMAND_SECRET_REMOVE_DESC));
+        this.setUsage(plugin.getMessage(Lang.COMMAND_SECRET_REMOVE_USAGE));
+        this.setPlayerOnly(true);
     }
 
     @Override

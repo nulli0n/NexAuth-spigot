@@ -15,23 +15,9 @@ public class SecretAddCommand extends AbstractCommand<NexAuth> {
 
     public SecretAddCommand(@NotNull NexAuth plugin) {
         super(plugin, new String[]{"add"}, Perms.SECRET);
-    }
-
-    @Override
-    @NotNull
-    public String getUsage() {
-        return plugin.getMessage(Lang.COMMAND_SECRET_ADD_USAGE).getLocalized();
-    }
-
-    @Override
-    @NotNull
-    public String getDescription() {
-        return plugin.getMessage(Lang.COMMAND_SECRET_ADD_DESC).getLocalized();
-    }
-
-    @Override
-    public boolean isPlayerOnly() {
-        return true;
+        this.setDescription(plugin.getMessage(Lang.COMMAND_SECRET_ADD_DESC));
+        this.setUsage(plugin.getMessage(Lang.COMMAND_SECRET_ADD_USAGE));
+        this.setPlayerOnly(true);
     }
 
     @Override

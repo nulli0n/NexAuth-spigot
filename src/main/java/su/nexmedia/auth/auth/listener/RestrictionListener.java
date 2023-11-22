@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -26,8 +27,8 @@ public class RestrictionListener extends AbstractListener<NexAuth> {
         super(plugin);
     }
 
-    private boolean cancelEvent(@NotNull PlayerEvent e) {
-        return this.cancelEvent(e.getPlayer());
+    private boolean cancelEvent(@NotNull PlayerEvent event) {
+        return this.cancelEvent(event.getPlayer());
     }
 
     private boolean cancelEvent(@NotNull Player player) {
@@ -38,32 +39,32 @@ public class RestrictionListener extends AbstractListener<NexAuth> {
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    public void onLoginBlockBreak(BlockBreakEvent e) {
-        e.setCancelled(this.cancelEvent(e.getPlayer()));
+    public void onLoginBlockBreak(BlockBreakEvent event) {
+        event.setCancelled(this.cancelEvent(event.getPlayer()));
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    public void onLoginBlockPlace(BlockPlaceEvent e) {
-        e.setCancelled(this.cancelEvent(e.getPlayer()));
+    public void onLoginBlockPlace(BlockPlaceEvent event) {
+        event.setCancelled(this.cancelEvent(event.getPlayer()));
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    public void onLoginDisplayCommands(PlayerCommandSendEvent e) {
-        if (!this.cancelEvent(e.getPlayer())) return;
+    public void onLoginDisplayCommands(PlayerCommandSendEvent event) {
+        if (!this.cancelEvent(event.getPlayer())) return;
 
-        e.getCommands().removeIf(command -> {
+        event.getCommands().removeIf(command -> {
             return !Config.GENERAL_LOGIN_COMMANDS.get().contains(command) && !Config.GENERAL_REGISTER_COMMANDS.get().contains(command);
         });
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    public void onLoginCommand(PlayerCommandPreprocessEvent e) {
-        Player player = e.getPlayer();
+    public void onLoginCommand(PlayerCommandPreprocessEvent event) {
+        Player player = event.getPlayer();
 
         AuthPlayer authPlayer = AuthPlayer.getOrCreate(player);
         if (authPlayer.isLogged()) return;
 
-        String msg = e.getMessage();
+        String msg = event.getMessage();
         String inputCmd = StringUtil.extractCommandName(msg);
 
         if (authPlayer.isRegistered()) {
@@ -76,84 +77,91 @@ public class RestrictionListener extends AbstractListener<NexAuth> {
                 return;
             }
         }
-        e.setCancelled(true);
+        event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    public void onLoginInteract(PlayerInteractEvent e) {
-        Player player = e.getPlayer();
+    public void onLoginInteract(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
         if (!this.cancelEvent(player)) return;
 
-        e.setUseInteractedBlock(Event.Result.DENY);
-        e.setUseItemInHand(Event.Result.DENY);
-        e.setCancelled(true);
+        event.setUseInteractedBlock(Event.Result.DENY);
+        event.setUseItemInHand(Event.Result.DENY);
+        event.setCancelled(true);
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    public void onLoginInteractEntity1(PlayerInteractEntityEvent e) {
-        e.setCancelled(this.cancelEvent(e));
+    public void onLoginInteractEntity1(PlayerInteractEntityEvent event) {
+        event.setCancelled(this.cancelEvent(event));
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    public void onLoginInteractEntity2(PlayerInteractAtEntityEvent e) {
-        e.setCancelled(this.cancelEvent(e));
+    public void onLoginInteractEntity2(PlayerInteractAtEntityEvent event) {
+        event.setCancelled(this.cancelEvent(event));
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    public void onLoginInventoryClick(InventoryClickEvent e) {
-        e.setCancelled(this.cancelEvent((Player) e.getWhoClicked()));
+    public void onLoginInventoryClick(InventoryClickEvent event) {
+        event.setCancelled(this.cancelEvent((Player) event.getWhoClicked()));
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    public void onLoginInventorySwap(PlayerSwapHandItemsEvent e) {
-        e.setCancelled(this.cancelEvent(e));
+    public void onLoginInventorySwap(PlayerSwapHandItemsEvent event) {
+        event.setCancelled(this.cancelEvent(event));
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    public void onLoginInventoryOpen(InventoryOpenEvent e) {
-        Player player = (Player) e.getPlayer();
-        e.setCancelled(this.cancelEvent(player));
-        if (e.isCancelled()) player.closeInventory();
+    public void onLoginInventoryOpen(InventoryOpenEvent event) {
+        Player player = (Player) event.getPlayer();
+        event.setCancelled(this.cancelEvent(player));
+        if (event.isCancelled()) player.closeInventory();
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    public void onLoginItemDamage(PlayerItemDamageEvent e) {
-        e.setCancelled(this.cancelEvent(e));
+    public void onLoginItemDamage(PlayerItemDamageEvent event) {
+        event.setCancelled(this.cancelEvent(event));
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    public void onLoginItemPick(EntityPickupItemEvent e) {
-        if (e.getEntity() instanceof Player player) {
-            e.setCancelled(this.cancelEvent(player));
+    public void onLoginItemPick(EntityPickupItemEvent event) {
+        if (event.getEntity() instanceof Player player) {
+            event.setCancelled(this.cancelEvent(player));
         }
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    public void onLoginItemDrop(PlayerDropItemEvent e) {
-        e.setCancelled(this.cancelEvent(e));
+    public void onLoginItemDrop(PlayerDropItemEvent event) {
+        event.setCancelled(this.cancelEvent(event));
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    public void onLoginDamage(EntityDamageEvent e) {
-        if (e.getEntity() instanceof Player player) {
-            e.setCancelled(this.cancelEvent(player));
+    public void onLoginDamage(EntityDamageEvent event) {
+        if (event.getEntity() instanceof Player player) {
+            event.setCancelled(this.cancelEvent(player));
         }
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    public void onLoginMove(PlayerMoveEvent e) {
-        Player player = e.getPlayer();
+    public void onLoginDamage(EntityDamageByEntityEvent event) {
+        if (event.getDamager() instanceof Player player) {
+            event.setCancelled(this.cancelEvent(player));
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+    public void onLoginMove(PlayerMoveEvent event) {
+        Player player = event.getPlayer();
         if (!this.cancelEvent(player)) return;
 
-        Location to = e.getTo();
+        Location to = event.getTo();
         if (to == null) {
-            e.setCancelled(true);
+            event.setCancelled(true);
             return;
         }
 
-        Location from = e.getFrom();
+        Location from = event.getFrom();
         if (from.getX() != to.getX() || from.getY() != to.getY() || from.getZ() != to.getZ()) {
-            e.setCancelled(true);
+            event.setCancelled(true);
         }
     }
 }

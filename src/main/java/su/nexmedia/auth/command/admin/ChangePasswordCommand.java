@@ -8,7 +8,6 @@ import su.nexmedia.auth.Perms;
 import su.nexmedia.auth.Placeholders;
 import su.nexmedia.auth.auth.AuthUtils;
 import su.nexmedia.auth.config.Lang;
-import su.nexmedia.auth.data.impl.AuthUser;
 import su.nexmedia.engine.api.command.AbstractCommand;
 import su.nexmedia.engine.api.command.CommandResult;
 import su.nexmedia.engine.utils.CollectionsUtil;
@@ -19,23 +18,8 @@ public class ChangePasswordCommand extends AbstractCommand<NexAuth> {
 
     public ChangePasswordCommand(@NotNull NexAuth plugin) {
         super(plugin, new String[]{"changepassword"}, Perms.COMMAND_ADMIN);
-    }
-
-    @Override
-    @NotNull
-    public String getUsage() {
-        return plugin.getMessage(Lang.COMMAND_ADMIN_CHANGEPASSWORD_USAGE).getLocalized();
-    }
-
-    @Override
-    @NotNull
-    public String getDescription() {
-        return plugin.getMessage(Lang.COMMAND_ADMIN_CHANGEPASSWORD_DESC).getLocalized();
-    }
-
-    @Override
-    public boolean isPlayerOnly() {
-        return false;
+        this.setDescription(plugin.getMessage(Lang.COMMAND_ADMIN_CHANGEPASSWORD_DESC));
+        this.setUsage(plugin.getMessage(Lang.COMMAND_ADMIN_CHANGEPASSWORD_USAGE));
     }
 
     @Override
@@ -54,17 +38,19 @@ public class ChangePasswordCommand extends AbstractCommand<NexAuth> {
             return;
         }
 
-        AuthUser user = plugin.getUserManager().getUserData(result.getArg(1));
-        if (user == null) {
-            this.errorPlayer(sender);
-            return;
-        }
+        this.plugin.getUserManager().getUserDataAsync(result.getArg(1)).thenAccept(user -> {
+            if (user == null) {
+                this.errorPlayer(sender);
+                return;
+            }
 
-        String password = AuthUtils.finePassword(result.getArg(2));
-        user.setPassword(password, user.getEncryptionType());
+            String password = AuthUtils.finePassword(result.getArg(2));
+            user.setPassword(password, user.getEncryptionType());
+            plugin.getUserManager().saveUser(user);
 
-        plugin.getMessage(Lang.COMMAND_ADMIN_CHANGEPASSWORD_DONE)
-            .replace(Placeholders.PLAYER_NAME, user.getName())
-            .send(sender);
+            plugin.getMessage(Lang.COMMAND_ADMIN_CHANGEPASSWORD_DONE)
+                .replace(Placeholders.PLAYER_NAME, user.getName())
+                .send(sender);
+        });
     }
 }

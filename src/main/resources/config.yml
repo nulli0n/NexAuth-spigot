@@ -1,6 +1,5 @@
 Plugin:
   Command_Aliases: 'nexauth,auth'
-  Language: en
 
 Database:
   Table_Prefix: 'nexauth'

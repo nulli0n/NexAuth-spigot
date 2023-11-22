@@ -5,6 +5,7 @@ import su.nexmedia.auth.api.encryption.EncryptionType;
 import su.nexmedia.engine.api.config.JOption;
 import su.nexmedia.engine.utils.CollectionsUtil;
 import su.nexmedia.engine.utils.Colorizer;
+import su.nexmedia.engine.utils.EngineUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -65,9 +66,19 @@ public class Config {
         "Sets how often (in seconds) player will action bar notifications about registration/login.",
         "Set this to 0 to disable");
 
-    public static final JOption<Boolean> LOGIN_LOCATION_ENABLED = JOption.create("Login.Location.Enabled", true,
+    public static final JOption<Boolean> LOGIN_LOCATION_ENABLED = JOption.create("Login.Location.Enabled", false,
         "Sets whether players should be teleported to a certain location during login.",
         "Set location using '/auth setloginlocation' command.");
+
+    public static final JOption<Boolean> LOGION_LOCATION_RESTORE = JOption.create("Login.Location.Restore", true,
+        "When enabled, teleports players back to their previous location after log-in.",
+        "This only has effect if login location is enabled.");
+
+    public static final JOption<List<String>> LOGIN_POST_COMMANDS = JOption.create("Login.Post_Commands",
+        Arrays.asList(),
+        "Here you can list commands that will be executed when player logged in.",
+        "Use '" + Placeholders.PLAYER_NAME + "' for player name in commands.",
+        "You can use " + EngineUtils.PLACEHOLDER_API + " placeholders in commands.");
 
     public static final JOption<Boolean> SECURITY_VISUAL_CLEAN_PLAYER = JOption.create("Security.Visual.CleanPlayer", true,
         "Sets whether player's inventory, potion effects, gamemode should reset during the login.");

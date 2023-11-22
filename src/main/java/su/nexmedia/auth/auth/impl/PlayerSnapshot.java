@@ -58,7 +58,7 @@ public class PlayerSnapshot {
         PlayerSnapshot snapshot = SNAPSHOTS.remove(player.getUniqueId());
         if (snapshot == null) return;
 
-        if (Config.LOGIN_LOCATION_ENABLED.get()) {
+        if (Config.LOGIN_LOCATION_ENABLED.get() && Config.LOGION_LOCATION_RESTORE.get()) {
             player.teleport(snapshot.getLocation());
         }
         player.setGameMode(snapshot.getGameMode());

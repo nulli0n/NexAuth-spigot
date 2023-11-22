@@ -7,7 +7,6 @@ import su.nexmedia.auth.NexAuth;
 import su.nexmedia.auth.Perms;
 import su.nexmedia.auth.Placeholders;
 import su.nexmedia.auth.config.Lang;
-import su.nexmedia.auth.data.impl.AuthUser;
 import su.nexmedia.engine.api.command.AbstractCommand;
 import su.nexmedia.engine.api.command.CommandResult;
 import su.nexmedia.engine.utils.CollectionsUtil;
@@ -18,23 +17,8 @@ public class ResetSecretCommand extends AbstractCommand<NexAuth> {
 
     public ResetSecretCommand(@NotNull NexAuth plugin) {
         super(plugin, new String[]{"resetsecret"}, Perms.COMMAND_ADMIN);
-    }
-
-    @Override
-    @NotNull
-    public String getUsage() {
-        return plugin.getMessage(Lang.COMMAND_ADMIN_RESETSECRET_USAGE).getLocalized();
-    }
-
-    @Override
-    @NotNull
-    public String getDescription() {
-        return plugin.getMessage(Lang.COMMAND_ADMIN_RESETSECRET_DESC).getLocalized();
-    }
-
-    @Override
-    public boolean isPlayerOnly() {
-        return false;
+        this.setDescription(plugin.getMessage(Lang.COMMAND_ADMIN_RESETSECRET_DESC));
+        this.setUsage(plugin.getMessage(Lang.COMMAND_ADMIN_RESETSECRET_USAGE));
     }
 
     @Override
@@ -53,17 +37,18 @@ public class ResetSecretCommand extends AbstractCommand<NexAuth> {
             return;
         }
 
-        String pName = result.getArg(1);
-        AuthUser user = plugin.getUserManager().getUserData(pName);
-        if (user == null) {
-            this.errorPlayer(sender);
-            return;
-        }
+        this.plugin.getUserManager().getUserDataAsync(result.getArg(1)).thenAccept(user -> {
+            if (user == null) {
+                this.errorPlayer(sender);
+                return;
+            }
 
-        user.getSecretKey().reset();
+            user.getSecretKey().reset();
+            plugin.getUserManager().saveUser(user);
 
-        plugin.getMessage(Lang.COMMAND_ADMIN_RESETSECRET_DONE)
-            .replace(Placeholders.PLAYER_NAME, user.getName())
-            .send(sender);
+            plugin.getMessage(Lang.COMMAND_ADMIN_RESETSECRET_DONE)
+                .replace(Placeholders.PLAYER_NAME, user.getName())
+                .send(sender);
+        });
     }
 }

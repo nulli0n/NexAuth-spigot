@@ -17,23 +17,9 @@ public class RegisterCommand extends GeneralCommand<NexAuth> {
 
     public RegisterCommand(@NotNull NexAuth plugin) {
         super(plugin, Config.GENERAL_REGISTER_COMMANDS.get().toArray(new String[0]), Perms.COMMAND_REGISTER);
-    }
-
-    @Override
-    @NotNull
-    public String getUsage() {
-        return plugin.getMessage(Lang.COMMAND_REGISTER_USAGE).getLocalized();
-    }
-
-    @Override
-    @NotNull
-    public String getDescription() {
-        return plugin.getMessage(Lang.COMMAND_REGISTER_DESC).getLocalized();
-    }
-
-    @Override
-    public boolean isPlayerOnly() {
-        return true;
+        this.setDescription(plugin.getMessage(Lang.COMMAND_REGISTER_DESC));
+        this.setUsage(plugin.getMessage(Lang.COMMAND_REGISTER_USAGE));
+        this.setPlayerOnly(true);
     }
 
     @Override

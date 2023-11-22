@@ -1,7 +1,7 @@
 name: NexAuth
 main: su.nexmedia.auth.NexAuth
 version: '${project.version}'
-description: Light & modern authorization system.
+description: Lightweight and modern authorization system.
 author: NightExpress
 depend: [NexEngine]
 api-version: 1.17

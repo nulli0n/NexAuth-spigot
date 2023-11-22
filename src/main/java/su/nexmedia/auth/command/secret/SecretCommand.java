@@ -13,26 +13,12 @@ public class SecretCommand extends GeneralCommand<NexAuth> {
 
     public SecretCommand(@NotNull NexAuth plugin) {
         super(plugin, new String[]{"secret"}, Perms.SECRET);
+        this.setDescription(plugin.getMessage(Lang.COMMAND_SECRET_DESC));
+        this.setUsage(plugin.getMessage(Lang.COMMAND_SECRET_USAGE));
+
         this.addDefaultCommand(new HelpSubCommand<>(plugin));
         this.addChildren(new SecretAddCommand(plugin));
         this.addChildren(new SecretRemoveCommand(plugin));
-    }
-
-    @Override
-    @NotNull
-    public String getUsage() {
-        return plugin.getMessage(Lang.COMMAND_SECRET_USAGE).getLocalized();
-    }
-
-    @Override
-    @NotNull
-    public String getDescription() {
-        return plugin.getMessage(Lang.COMMAND_SECRET_DESC).getLocalized();
-    }
-
-    @Override
-    public boolean isPlayerOnly() {
-        return false;
     }
 
     @Override

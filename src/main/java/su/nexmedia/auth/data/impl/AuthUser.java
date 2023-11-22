@@ -65,7 +65,6 @@ public class AuthUser extends AbstractUser<NexAuth> {
     public void setPassword(@NotNull String password, @NotNull EncryptionType type) {
         this.hashedPassword = password.isEmpty() ? password : type.getEncrypter().encrypt(password);
         this.encryptionType = type;
-        this.plugin.getUserManager().saveUser(this);
     }
 
     @NotNull

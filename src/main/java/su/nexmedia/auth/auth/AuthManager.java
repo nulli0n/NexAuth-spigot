@@ -24,6 +24,7 @@ import su.nexmedia.auth.config.Lang;
 import su.nexmedia.auth.data.impl.AuthUser;
 import su.nexmedia.engine.api.config.JYML;
 import su.nexmedia.engine.api.manager.AbstractManager;
+import su.nexmedia.engine.utils.PlayerUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -251,6 +252,7 @@ public class AuthManager extends AbstractManager<NexAuth> {
         PlayerSnapshot.restore(player);
         this.blind(player, false);
 
+        plugin.getUserManager().saveUser(user);
         plugin.getMessage(Lang.LOGIN_REGISTER_SUCCESS).send(player);
         plugin.getMessage(Lang.REGISTER_REMIND_PASSWORD).replace(Placeholders.GENERIC_PASSWORD, password).send(player);
         if (!authPlayer.getData().hasSecretKey()) {
@@ -334,6 +336,8 @@ public class AuthManager extends AbstractManager<NexAuth> {
         this.blind(player, false);
         PlayerSnapshot.restore(player);
 
+        Config.LOGIN_POST_COMMANDS.get().forEach(command -> PlayerUtil.dispatchCommand(player, command));
+
         plugin.getMessage(Lang.LOGIN_SUCCESS).send(player);
         if (!authPlayer.getData().hasSecretKey()) {
             plugin.getMessage(Lang.SECRET_ADD_NOTIFY).send(player);
@@ -375,6 +379,7 @@ public class AuthManager extends AbstractManager<NexAuth> {
         }
 
         user.setPassword(newPass, user.getEncryptionType());
+        plugin.getUserManager().saveUser(user);
         plugin.getMessage(Lang.CHANGEPASSWORD_NOTIFY_CHANGED).send(player);
         if (Config.GENERAL_LOG_ACTIONS.get()) {
             plugin.info("Player " + player.getName() + " changed his password.");

@@ -1,0 +1,169 @@
+Placeholders: {}
+Command:
+  Login:
+    Usage: <密码>
+    Desc: 登录服务器
+  Register:
+    Usage: <密码>
+    Desc: 在服务器上注册
+  Changepassword:
+    Usage: <旧密码> <新密码>
+    Desc: 更改当前密码
+  Secret:
+    Usage: '[帮助]'
+    Desc: 管理帐户的密保问题
+    Add:
+      Usage: ''
+      Desc: 向帐户添加密保问题
+    Remove:
+      Usage: ''
+      Desc: 从帐户移除密保问题
+  Admin:
+    Changepassword:
+      Usage: <玩家> <密码>
+      Desc: 更改玩家的当前密码
+      Done: '已更改 #aefd5e%player_name% #d4d9d8的密码'
+    Unregister:
+      Usage: <用户>
+      Desc: 注销指定玩家
+      Done: '&a%player% &7已注销'
+      Kick: '&e您的帐户已被注销'
+    ResetSecret:
+      Usage: <玩家>
+      Desc: 重置玩家的密保问题
+      Done: '已为 #aefd5e%player_name% #d4d9d8重置密保问题'
+    SetLoginLocation:
+      Usage: ''
+      Desc: 将登录位置设置为您的位置
+      Done: 已设置登录位置！
+Join:
+  Error:
+    Name:
+      Short: '#fd5e5e您的名字太短了！它必须包含至少 #fdba5e%amount% #fd5e5e个字符！'
+      Long: '#fd5e5e您的名字太长了！它不能超过 #fdba5e%amount% #fd5e5e个字符！'
+      InvalidChars: '#fd5e5e您的名字包含不允许的字符！有效字符范围: #fdba5e%pattern%'
+      InvalidCase: '#fd5e5e您的昵称大小写错误！必须是: #fdba5e%name%'
+    BadCountry: '#fd5e5e您的国家被此服务器禁止加入！'
+    AlreadyLogged: '#fd5e5e此名字的玩家已经登录'
+Login:
+  Notify:
+    LogIn: '<! type:"action_bar" !>#fd5e5e您尚未登录。请使用 #fdba5e/login <密码> 登录'
+    Register: '<! type:"action_bar" !>#fd5e5e您尚未注册。请使用 #fdba5e/register <密码> 注册'
+  Error:
+    TooManyAttempts: '#fd5e5e您已达到登录尝试次数的限制'
+    Timeout: '#fd5e5e登录超时！'
+    WrongPassword:
+      - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+      - '#fd5e5e密码错误！'
+      - '#d4d9d8请再试一次。#6c6c62(剩余 %amount% 次尝试)'
+    WrongConfirm:
+      - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+      - '#fd5e5e密码不正确'
+      - '#d4d9d8密码确认失败。请输入 #fd5e5e新的 #d4d9d8密码'
+  Prompt:
+    Password:
+      - <! type:"titles:20:-1:20" !>
+      - '#fdf35e请登录'
+      - '#d4d9d8在 #fdf35e聊天栏#d4d9d8 中输入您的密码'
+    Register:
+      - <! type:"titles:20:-1:20" !>
+      - '#fd5e5e请注册'
+      - '#d4d9d8在 #fd5e5e聊天栏#d4d9d8 中输入您的密码'
+    ConfirmPassword:
+      - <! type:"titles:20:-1:20" sound:"BLOCK_LAVA_POP" !>
+      - '#fdba5e确认密码'
+      - '#d4d9d8请在 #fdba5e聊天栏#d4d9d8 中再次输入您的密码'
+  Register:
+    Success:
+      - <! type:"titles:20:60:20" sound:"ENTITY_PLAYER_LEVELUP" !>
+      - '#aefd5e注册成功！'
+      - '#d4d9d8您已注册。现在可以开始游戏了'
+  Success:
+    - <! type:"titles:20:60:20" sound:"BLOCK_IRON_DOOR_OPEN" !>
+    - '#aefd5e登录成功！'
+    - '#d4d9d8您已登录。现在可以开始游戏了'
+Register:
+  RemindPassword:
+    - <! prefix:"false" !>
+    - '&7'
+    - '#aefd5e注册成功!'
+    - '#d4d9d8你的密码是: <? show_text:"#fdba5e%password%" ?>#aefd5e[阻挡]</>'
+    - '&7'
+    - '#fd5e5e注意: #d4d9d8永远不要与任何人分享您的密码！服务器工作人员 #fd5e5e永远不会 #d4d9d8要求您与他们分享密码'
+    - '&7'
+  Error:
+    Password:
+      Short:
+        - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+        - '#fd5e5e密码太短！'
+        - '#d4d9d8密码必须至少有 #fd5e5e%amount% #d4d9d8个字符！'
+      Long:
+        - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+        - '#fd5e5e密码太长！'
+        - '#d4d9d8密码不能超过 #fd5e5e%amount% #d4d9d8个字符！'
+      InvalidChars:
+        - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+        - '#fd5e5e不安全的密码！'
+        - '#d4d9d8您的密码包含不被允许的字符！'
+      NotEnoughLowerChars:
+        - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+        - '#fd5e5e不安全的密码！'
+        - '#d4d9d8密码必须至少有 #fd5e5e%amount% #d4d9d8个小写字母！'
+      NotEnoughUpperChars:
+        - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+        - '#fd5e5e不安全的密码！'
+        - '#d4d9d8密码必须至少有 #fd5e5e%amount% #d4d9d8个大写字母！'
+      NotEnoughDigits:
+        - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+        - '#fd5e5e不安全的密码！'
+        - '#d4d9d8密码必须至少有 #fd5e5e%amount% #d4d9d8个数字！'
+      NotEnoughUniques:
+        - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+        - '#fd5e5e不安全的密码！'
+        - '#d4d9d8密码必须至少有 #fd5e5e%amount% #d4d9d8个唯一字符！'
+    IPLimit:
+      - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+      - '#fd5e5e太多账户！'
+      - '#d4d9d8您的IP已达到账户限制'
+Changepassword:
+  Error:
+    WrongOld: 旧密码不正确！
+  Notify:
+    Changed: 你已经更改了你的密码！
+Secret:
+  Error:
+    NotSet: '#fd5e5e你没有密保问题！'
+    AlreadySet: '#fd5e5e你已经有一个密保问题了！你需要先删除它'
+  Add:
+    Notify:
+      - <! prefix:"false" !>
+      - '&7'
+      - "#fdf35e>#d4d9d8 通过添加 #fdf35e密保问题 #d4d9d8来额外保护你的账户！"
+      - "#fdf35e>#d4d9d8 输入 #fdf35e/secret add#d4d9d8 添加一个密保问题"
+      - '&7'
+    Question:
+      - <! type:"titles:20:-1:20" sound:"BLOCK_LAVA_POP" !>
+      - "#fdf35e密保问题"
+      - "#d4d9d8在 #fdf35e聊天 #d4d9d8中创建密保问题"
+    Answer:
+      - <! type:"titles:20:-1:20" sound:"BLOCK_LAVA_POP" !>
+      - "#fdf35e%question%"
+      - "#d4d9d8在 #fdf35e聊天 #d4d9d8中创建密保答案"
+    Done:
+      - <! type:"titles:20:60:20" sound:"BLOCK_ENCHANTMENT_TABLE_USE" !>
+      - "#aefd5e密保已添加！"
+      - "#d4d9d8你为你的账户创建了密保问题"
+  Answer:
+    Prompt:
+      - <! type:"titles:20:-1:20" sound:"BLOCK_LAVA_POP" !>
+      - "#fdba5e%question%"
+      - "#d4d9d8在 #fdba5e聊天 #d4d9d8中输入密保答案"
+    Wrong:
+      - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+      - "#fd5e5e%question%"
+      - "#d4d9d8密保答案错误！请 #fd5e5e再试一次"
+  Remove:
+    Done:
+      - <! type:"titles:20:60:20" sound:"BLOCK_GRINDSTONE_USE" !>
+      - "#aefd5e密保已移除！"
+      - "#d4d9d8你已从你的账户中移除了密保问题"

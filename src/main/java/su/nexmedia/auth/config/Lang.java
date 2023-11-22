@@ -64,7 +64,7 @@ public class Lang {
     public static final LangKey REGISTER_REMIND_PASSWORD = LangKey.of("Register.RemindPassword",
         "<! prefix:\"false\" !>" +
             "\n&7" +
-            "\n" + GREEN + "&lRegistration Completed!" +
+            "\n" + GREEN + BOLD + "Registration Completed!" +
             "\n" + GRAY + "Your passowrd is: <? show_text:\"" + ORANGE + Placeholders.GENERIC_PASSWORD + "\" ?>" + GREEN + "[Spoiler]</>" +
             "\n&7" +
             "\n" + RED + "&lNote: " + GRAY + "Never share your password with anyone! Server staff will " + RED + "never" + GRAY + " ask you to share it with them." +
@@ -72,42 +72,42 @@ public class Lang {
 
     public static final LangKey REGISTER_ERROR_PASSWORD_SHORT = LangKey.of("Register.Error.Password.Short",
         "<! type:\"titles:20:-1:20\" sound:\"" + Sound.ENTITY_VILLAGER_NO.name() + "\" !>" +
-            "\n" + RED + "&lPassword Too Short!" +
+            "\n" + RED + BOLD + "Password Too Short!" +
             "\n" + GRAY + "Password must have at least " + RED + Placeholders.GENERIC_AMOUNT + GRAY + " characters!");
 
     public static final LangKey REGISTER_ERROR_PASSWORD_LONG = LangKey.of("Register.Error.Password.Long",
         "<! type:\"titles:20:-1:20\" sound:\"" + Sound.ENTITY_VILLAGER_NO.name() + "\" !>" +
-            "\n" + RED + "&lPassword Too Long!" +
+            "\n" + RED + BOLD + "Password Too Long!" +
             "\n" + GRAY + "Password can be no longer than " + RED + Placeholders.GENERIC_AMOUNT + GRAY + " characters!");
 
     public static final LangKey REGISTER_ERROR_PASSWORD_INVALID_CHARS = LangKey.of("Register.Error.Password.InvalidChars",
         "<! type:\"titles:20:-1:20\" sound:\"" + Sound.ENTITY_VILLAGER_NO.name() + "\" !>" +
-            "\n" + RED + "&lUnsafe Password!" +
+            "\n" + RED + BOLD + "Unsafe Password!" +
             "\n" + GRAY + "Your password contains unacceptable characters!");
 
     public static final LangKey REGISTER_ERROR_PASSWORD_NOT_ENOUGH_LOWER_CHARS = LangKey.of("Register.Error.Password.NotEnoughLowerChars",
         "<! type:\"titles:20:-1:20\" sound:\"" + Sound.ENTITY_VILLAGER_NO.name() + "\" !>" +
-            "\n" + RED + "&lUnsafe Password!" +
+            "\n" + RED + BOLD + "Unsafe Password!" +
             "\n" + GRAY + "Password must have at least " + RED + Placeholders.GENERIC_AMOUNT + GRAY + " lower-case character(s)!");
 
     public static final LangKey REGISTER_ERROR_PASSWORD_NOT_ENOUGH_UPPER_CHARS = LangKey.of("Register.Error.Password.NotEnoughUpperChars",
         "<! type:\"titles:20:-1:20\" sound:\"" + Sound.ENTITY_VILLAGER_NO.name() + "\" !>" +
-            "\n" + RED + "&lUnsafe Password!" +
+            "\n" + RED + BOLD + "Unsafe Password!" +
             "\n" + GRAY + "Password must have at least " + RED + Placeholders.GENERIC_AMOUNT + GRAY + " upper-case character(s)!");
 
     public static final LangKey REGISTER_ERROR_PASSWORD_NOT_ENOUGH_DIGITS = LangKey.of("Register.Error.Password.NotEnoughDigits",
         "<! type:\"titles:20:-1:20\" sound:\"" + Sound.ENTITY_VILLAGER_NO.name() + "\" !>" +
-            "\n" + RED + "&lUnsafe Password!" +
+            "\n" + RED + BOLD + "Unsafe Password!" +
             "\n" + GRAY + "Password must have at least " + RED + Placeholders.GENERIC_AMOUNT + GRAY + " digit(s)!");
 
     public static final LangKey REGISTER_ERROR_PASSWORD_NOT_ENOUGH_UNIQUES = LangKey.of("Register.Error.Password.NotEnoughUniques",
         "<! type:\"titles:20:-1:20\" sound:\"" + Sound.ENTITY_VILLAGER_NO.name() + "\" !>" +
-            "\n" + RED + "&lUnsafe Password!" +
+            "\n" + RED + BOLD + "Unsafe Password!" +
             "\n" + GRAY + "Password must have at least " + RED + Placeholders.GENERIC_AMOUNT + GRAY + " unique characters!");
 
     public static final LangKey REGISTER_ERROR_IP_LIMIT = LangKey.of("Register.Error.IPLimit",
         "<! type:\"titles:20:-1:20\" sound:\"" + Sound.ENTITY_VILLAGER_NO.name() + "\" !>" +
-            "\n" + RED + "&lToo Many Accounts!" +
+            "\n" + RED + BOLD + "Too Many Accounts!" +
             "\n" + GRAY + "You have reached the limit of accounts for your IP.");
 
     public static final LangKey CHANGEPASSWORD_ERROR_WRONG_OLD = LangKey.of("Changepassword.Error.WrongOld", "Old password is incorrect!");
@@ -115,37 +115,37 @@ public class Lang {
 
     public static final LangKey LOGIN_PROMPT_PASSWORD = LangKey.of("Login.Prompt.Password",
         "<! type:\"titles:20:-1:20\" !>" +
-            "\n" + YELLOW + "&lPlease Log-In" +
+            "\n" + YELLOW + BOLD + "Please Log-In" +
             "\n" + GRAY + "Type your password in " + YELLOW + "chat" + GRAY + ".");
 
     public static final LangKey LOGIN_PROMPT_REGISTER = LangKey.of("Login.Prompt.Register",
         "<! type:\"titles:20:-1:20\" !>" +
-            "\n" + RED + "&lPlease Register" +
+            "\n" + RED + BOLD + "Please Register" +
             "\n" + GRAY + "Type your password in " + RED + "chat" + GRAY + ".");
 
     public static final LangKey LOGIN_PROMPT_CONFIRM_PASSWORD = LangKey.of("Login.Prompt.ConfirmPassword",
         "<! type:\"titles:20:-1:20\" sound:\"" + Sound.BLOCK_LAVA_POP.name() + "\" !>" +
-            "\n" + ORANGE + "&lConfirm Password" +
+            "\n" + ORANGE + BOLD + "Confirm Password" +
             "\n" + GRAY + "Type your password in " + ORANGE + "chat" + GRAY + " again.");
 
     public static final LangKey LOGIN_REGISTER_SUCCESS = LangKey.of("Login.Register.Success",
         "<! type:\"titles:20:60:20\" sound:\"" + Sound.ENTITY_PLAYER_LEVELUP.name() + "\" !>" +
-            "\n" + GREEN + "&lSuccessful Registration!" +
+            "\n" + GREEN + BOLD + "Successful Registration!" +
             "\n" + GRAY + "You're registered. You can play now.");
 
     public static final LangKey LOGIN_SUCCESS = LangKey.of("Login.Success",
         "<! type:\"titles:20:60:20\" sound:\"" + Sound.BLOCK_IRON_DOOR_OPEN.name() + "\" !>" +
-            "\n" + GREEN + "&lSuccessful Login!" +
+            "\n" + GREEN + BOLD + "Successful Login!" +
             "\n" + GRAY + "You're logged in. You can play now.");
 
     public static final LangKey LOGIN_ERROR_WRONG_PASSWORD = LangKey.of("Login.Error.WrongPassword",
         "<! type:\"titles:20:-1:20\" sound:\"" + Sound.ENTITY_VILLAGER_NO.name() + "\" !>" +
-            "\n" + RED + "&lWrong Password!" +
+            "\n" + RED + BOLD + "Wrong Password!" +
             "\n" + GRAY + "Please, try again. " + DARK_GRAY + "(" + Placeholders.GENERIC_AMOUNT + " attempt(s) left)");
 
     public static final LangKey LOGIN_ERROR_WRONG_CONFIRM = LangKey.of("Login.Error.WrongConfirm",
         "<! type:\"titles:20:-1:20\" sound:\"" + Sound.ENTITY_VILLAGER_NO.name() + "\" !>" +
-            "\n" + RED + "&lPasswords Not Matches" +
+            "\n" + RED + BOLD + "Passwords Not Matches" +
             "\n" + GRAY + "Password confirmation failed. Enter " + RED + "new" + GRAY + " password.");
 
     public static final LangKey SECRET_ERROR_NOT_SET     = LangKey.of("Secret.Error.NotSet", RED + "You don't have a secret question!");
@@ -154,37 +154,37 @@ public class Lang {
     public static final LangKey SECRET_ADD_NOTIFY = LangKey.of("Secret.Add.Notify",
         "<! prefix:\"false\" !>" +
             "\n&7" +
-            "\n" + YELLOW + "&l>" + GRAY + " Extra protect your account by adding " + YELLOW + "Secret Question" + GRAY + "!" +
-            "\n" + YELLOW + "&l>" + GRAY + " Type " + YELLOW + "/secret add" + GRAY + " add a secret question." +
+            "\n" + YELLOW + BOLD + ">" + GRAY + " Extra protect your account by adding " + YELLOW + "Secret Question" + GRAY + "!" +
+            "\n" + YELLOW + BOLD + ">" + GRAY + " Type " + YELLOW + "/secret add" + GRAY + " add a secret question." +
             "\n&7");
 
     public static final LangKey SECRET_ANSWER_PROMPT = LangKey.of("Secret.Answer.Prompt",
         "<! type:\"titles:20:-1:20\" sound:\"" + Sound.BLOCK_LAVA_POP.name() + "\" !>" +
-            "\n" + ORANGE + "&l" + Placeholders.GENERIC_QUESTION +
+            "\n" + ORANGE + BOLD + Placeholders.GENERIC_QUESTION +
             "\n" + GRAY + "Enter secret answer in " + ORANGE + "chat" + GRAY + ".");
 
     public static final LangKey SECRET_ANSWER_WRONG = LangKey.of("Secret.Answer.Wrong",
         "<! type:\"titles:20:-1:20\" sound:\"" + Sound.ENTITY_VILLAGER_NO.name() + "\" !>" +
-            "\n" + RED + "&l" + Placeholders.GENERIC_QUESTION +
+            "\n" + RED + BOLD + Placeholders.GENERIC_QUESTION +
             "\n" + GRAY + "Wrong secret answer! Try " + RED + "again" + GRAY + ".");
 
     public static final LangKey SECRET_ADD_QUESTION = LangKey.of("Secret.Add.Question",
         "<! type:\"titles:20:-1:20\" sound:\"" + Sound.BLOCK_LAVA_POP.name() + "\" !>" +
-            "\n" + YELLOW + "&lSecret Question" +
+            "\n" + YELLOW + BOLD + "Secret Question" +
             "\n" + GRAY + "Create secret question in " + YELLOW + "chat" + GRAY + ".");
 
     public static final LangKey SECRET_ADD_ANSWER = LangKey.of("Secret.Add.Answer",
         "<! type:\"titles:20:-1:20\" sound:\"" + Sound.BLOCK_LAVA_POP.name() + "\" !>" +
-            "\n" + YELLOW + "&l" + Placeholders.GENERIC_QUESTION +
+            "\n" + YELLOW + BOLD + Placeholders.GENERIC_QUESTION +
             "\n" + GRAY + "Create secret answer in " + YELLOW + "chat" + GRAY + ".");
 
     public static final LangKey SECRET_ADD_DONE = LangKey.of("Secret.Add.Done",
         "<! type:\"titles:20:60:20\" sound:\"" + Sound.BLOCK_ENCHANTMENT_TABLE_USE.name() + "\" !>" +
-            "\n" + GREEN + "&lSecret Added!" +
+            "\n" + GREEN + BOLD + "Secret Added!" +
             "\n" + GRAY + "You created secret question for your account.");
 
     public static final LangKey SECRET_REMOVE_DONE = LangKey.of("Secret.Remove.Done",
         "<! type:\"titles:20:60:20\" sound:\"" + Sound.BLOCK_GRINDSTONE_USE.name() + "\" !>" +
-            "\n" + GREEN + "&lSecret Removed!" +
+            "\n" + GREEN + BOLD + "Secret Removed!" +
             "\n" + GRAY + "You removed secret question from your account.");
 }

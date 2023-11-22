@@ -6,7 +6,6 @@ import org.jetbrains.annotations.NotNull;
 import su.nexmedia.auth.NexAuth;
 import su.nexmedia.auth.Perms;
 import su.nexmedia.auth.config.Lang;
-import su.nexmedia.auth.data.impl.AuthUser;
 import su.nexmedia.engine.api.command.AbstractCommand;
 import su.nexmedia.engine.api.command.CommandResult;
 import su.nexmedia.engine.utils.CollectionsUtil;
@@ -17,23 +16,8 @@ public class UnregisterCommand extends AbstractCommand<NexAuth> {
 
     public UnregisterCommand(@NotNull NexAuth plugin) {
         super(plugin, new String[]{"unregister"}, Perms.COMMAND_ADMIN);
-    }
-
-    @Override
-    @NotNull
-    public String getUsage() {
-        return plugin.getMessage(Lang.COMMAND_ADMIN_UNREGISTER_USAGE).getLocalized();
-    }
-
-    @Override
-    @NotNull
-    public String getDescription() {
-        return plugin.getMessage(Lang.COMMAND_ADMIN_UNREGISTER_DESC).getLocalized();
-    }
-
-    @Override
-    public boolean isPlayerOnly() {
-        return false;
+        this.setDescription(plugin.getMessage(Lang.COMMAND_ADMIN_UNREGISTER_DESC));
+        this.setUsage(plugin.getMessage(Lang.COMMAND_ADMIN_UNREGISTER_USAGE));
     }
 
     @Override
@@ -52,24 +36,26 @@ public class UnregisterCommand extends AbstractCommand<NexAuth> {
             return;
         }
 
-        String pName = result.getArg(1);
-        AuthUser user = plugin.getUserManager().getUserData(pName);
-        if (user == null) {
-            this.errorPlayer(sender);
-            return;
-        }
+        this.plugin.getUserManager().getUserDataAsync(result.getArg(1)).thenAccept(user -> {
+            if (user == null) {
+                this.errorPlayer(sender);
+                return;
+            }
 
-        Player player = user.getPlayer();
-        if (player != null) {
-            player.kickPlayer(plugin.getMessage(Lang.COMMAND_ADMIN_UNREGISTER_KICK).getLocalized());
-        }
+            // Synchronize
+            this.plugin.runTask(task -> {
+                Player player = user.getPlayer();
+                if (player != null) {
+                    player.kickPlayer(plugin.getMessage(Lang.COMMAND_ADMIN_UNREGISTER_KICK).getLocalized());
+                }
 
-        plugin.getUserManager().unloadUser(user.getId());
-        plugin.getData().onSave();
-        plugin.getData().deleteUser(user.getId());
+                plugin.getUserManager().getUsersLoadedMap().remove(user.getId());
+                plugin.getData().deleteUser(user.getId());
 
-        plugin.getMessage(Lang.COMMAND_ADMIN_UNREGISTER_DONE)
-            .replace("%player%", user.getName())
-            .send(sender);
+                plugin.getMessage(Lang.COMMAND_ADMIN_UNREGISTER_DONE)
+                    .replace("%player%", user.getName())
+                    .send(sender);
+            });
+        });
     }
 }
