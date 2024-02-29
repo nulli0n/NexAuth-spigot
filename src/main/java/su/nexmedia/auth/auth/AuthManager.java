@@ -9,6 +9,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 import su.nexmedia.auth.NexAuth;
+import su.nexmedia.auth.Perms;
 import su.nexmedia.auth.Placeholders;
 import su.nexmedia.auth.api.event.AuthPlayerLoginEvent;
 import su.nexmedia.auth.api.event.AuthPlayerRegisterEvent;
@@ -178,6 +179,11 @@ public class AuthManager extends AbstractManager<NexAuth> {
         authPlayer.setTempPasswordHash(null);
         authPlayer.setTempSecretInput(null);
 
+        if (!authPlayer.getData().isRegistered() && player.hasPermission(Perms.BYPASS)) {
+            this.login(player);
+            return;
+        }
+
         if (!authPlayer.getData().isRegistered()) {
             plugin.getMessage(Lang.LOGIN_PROMPT_REGISTER).send(player);
         }
@@ -326,7 +332,7 @@ public class AuthManager extends AbstractManager<NexAuth> {
 
     public boolean login(@NotNull Player player) {
         AuthPlayer authPlayer = AuthPlayer.getOrCreate(player);
-        if (!authPlayer.isRegistered() || !authPlayer.isInLogin()) return false;
+        if ((!authPlayer.isRegistered() && !player.hasPermission(Perms.BYPASS)) || !authPlayer.isInLogin()) return false;
 
         authPlayer.setTempPasswordHash(null);
         authPlayer.setTempSecretInput(null);

@@ -5,3 +5,6 @@ description: Lightweight and modern authorization system.
 author: NightExpress
 depend: [NexEngine]
 api-version: 1.17
+
+libraries:
+  - org.apache.logging.log4j:log4j-core:2.23.0
