@@ -16,8 +16,10 @@ public class Perms {
     public static final JPermission COMMAND_REGISTER       = new JPermission(PREFIX_COMMAND + "register", "Access to the register commands.");
     public static final JPermission COMMAND_CHANGEPASSWORD = new JPermission(PREFIX_COMMAND + "changepassword", "Access to the change password command.");
 
+    public static final JPermission BYPASS = new JPermission(PREFIX + "bypass-registration", "Bypass registration and login restrictions.");
+
     static {
-        PLUGIN.addChildren(COMMAND, SECRET);
+        PLUGIN.addChildren(COMMAND, SECRET, BYPASS);
 
         COMMAND.addChildren(COMMAND_ADMIN, COMMAND_LOGIN, COMMAND_REGISTER);
     }
