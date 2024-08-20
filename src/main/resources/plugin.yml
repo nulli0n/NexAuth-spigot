@@ -1,0 +1,8 @@
+name: NexAuth
+main: su.nexmedia.auth.AuthPlugin
+version: '${project.version}'
+description: Lightweight and modern authorization system.
+author: NightExpress
+depend:
+  - nightcore
+api-version: 1.18
