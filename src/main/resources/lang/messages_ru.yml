@@ -1,0 +1,176 @@
+# Here you can create your own custom placeholders to use it in language config.
+# Key = Placeholder, Value = Replacer.
+Placeholders:
+  '%green%': '#aefd5e'
+  '%red%': '#fd5e5e'
+  '%gray%': '#d4d9d8'
+Command:
+  Login:
+    Usage: <password>
+    Desc: Войдите на сервер.
+  Register:
+    Usage: <password>
+    Desc: Зарегистрируйтесь на сервере.
+  Changepassword:
+    Usage: <old password> <new password>
+    Desc: Изменить текущий пароль
+  Secret:
+    Usage: '[help]'
+    Desc: Управляйте секретным вопросом аккаунта.
+    Add:
+      Usage: ''
+      Desc: Добавить секретный вопрос к учетной записи.
+    Remove:
+      Usage: ''
+      Desc: Удалите секретный вопрос из учетной записи.
+  Admin:
+    Changepassword:
+      Usage: <player> <password>
+      Desc: Изменить текущий пароль игрока.
+      Done: 'Изменен пароль для #aefd5e%player_name%#d4d9d8''s.'
+    Unregister:
+      Usage: <user>
+      Desc: Отменить регистрацию с указанного игрока.
+      Done: '&a%player%&7 unregistered.'
+      Kick: '&eУ вашего аккаунта отменена регистрация'
+    ResetSecret:
+      Usage: <player>
+      Desc: Сбросить секретный вопрос игрока.
+      Done: 'Удалён секретный вопрос для #aefd5e%player_name%#d4d9d8.'
+    SetLoginLocation:
+      Usage: ''
+      Desc: Set login location to your position.
+      Done: Login location set!
+Join:
+  Error:
+    Name:
+      Short: '#fd5e5eВаше имя слишком короткое! Оно должно содержать как минимум #fdba5e%amount%#fd5e5e символов!'
+      Long: '#fd5e5eВаше имя слишком длинное! Оно не должно быть длиннее #fdba5e%amount%#fd5e5e символов!'
+      InvalidChars: '#fd5e5eВаше имя содержит запрещенные символы! Допустимый диапазон символов: #fdba5e%pattern%'
+      InvalidCase: '#fd5e5eВаш ник указан в неправильном регистре! Должен быть: #fdba5e%name%'
+    BadCountry: '#fd5e5eВаша страна заблокирована на этом сервере!'
+    AlreadyLogged: '#fd5e5eИгрок с таким именем уже вошел в систему.'
+Login:
+  Notify:
+    # LogIn: '<! type:"action_bar" !>#fd5e5eВы не вошли в систему. Войдите с помощью #fdba5e/login <password>'
+    # Register: '<! type:"action_bar" !>#fd5e5eВы не зарегистрированы. Зарегистрируйтесь с помощью #fdba5e/register <password>'
+    LogIn: '<! type:"action_bar" !>#fd5e5eВы не вошли в систему.'
+    Register: '<! type:"action_bar" !>#fd5e5eВы не зарегистрированы.'
+  Error:
+    TooManyAttempts: '#fd5e5eВы достигли лимита попыток входа в систему.'
+    Timeout: '#fd5e5eПревышено время авторизации!'
+    WrongPassword:
+    - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+    - '#fd5e5e&lНеверный пароль!'
+    - '#d4d9d8Пожалуйста, попробуйте еще раз. #6c6c62(%amount% attempt(s) left)'
+    WrongConfirm:
+    - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+    - '#fd5e5e&lПароли не совпадают'
+    - '#d4d9d8Подтверждение пароля не удалось. Введите #fd5e5enew#d4d9d8 пароль.'
+  Prompt:
+    Password:
+    - <! type:"titles:20:-1:20" !>
+    - '#fdf35e&lПожалуйста, войдите в систему'
+    - '#d4d9d8Введите свой пароль в #fdf35eчат#d4d9d8.'
+    Register:
+    - <! type:"titles:20:-1:20" !>
+    - '#fd5e5e&lПожалуйста, зарегистрируйтесь'
+    - '#d4d9d8Введите свой пароль в #fd5e5eчат#d4d9d8.'
+    ConfirmPassword:
+    - <! type:"titles:20:-1:20" sound:"BLOCK_LAVA_POP" !>
+    - '#fdba5e&lПодтвердите пароль'
+    - '#d4d9d8Введите свой пароль в #fdba5eчат#d4d9d8 again.'
+  Register:
+    Success:
+    - <! type:"titles:20:60:20" sound:"ENTITY_PLAYER_LEVELUP" !>
+    - '#aefd5e&lУспешная регистрация!'
+    - '#d4d9d8Вы зарегистрированы.'
+  Success:
+  - <! type:"titles:20:60:20" sound:"BLOCK_IRON_DOOR_OPEN" !>
+  - '#aefd5e&lУспешная авторизация'
+  - '#d4d9d8Вы вошли в систему.'
+Register:
+  RemindPassword:
+  - <! prefix:"false" !>
+  - '&7'
+  - '#aefd5e&lРегистрация завершена!'
+  - '#d4d9d8Ваш пароль: <? show_text:"#fdba5e%password%" ?>#aefd5e[Spoiler]</>'
+  - '&7'
+  - '#fd5e5e&lПримечание: #d4d9d8Никогда и никому не сообщайте свой пароль! Персонал сервера #fd5e5eникогда#d4d9d8 не попросит вас поделиться им'
+  - '&7'
+  Error:
+    Password:
+      Short:
+      - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+      - '#fd5e5e&lСлишком короткий пароль!'
+      - '#d4d9d8Пароль должен содержать не менее #fd5e5e%amount%#d4d9d8 символов!'
+      Long:
+      - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+      - '#fd5e5e&lСлишком длинный пароль!'
+      - '#d4d9d8Пароль не может быть длиннее #fd5e5e%amount%#d4d9d8 символов!'
+      InvalidChars:
+      - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+      - '#fd5e5e&lНенадежный пароль!'
+      - '#d4d9d8Ваш пароль содержит недопустимые символы!'
+      NotEnoughLowerChars:
+      - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+      - '#fd5e5e&lНенадежный пароль!'
+      - '#d4d9d8Пароль должен содержать не менее #fd5e5e%amount%#d4d9d8 символов в нижнем регистре!'
+      NotEnoughUpperChars:
+      - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+      - '#fd5e5e&lНенадежный пароль!'
+      - '#d4d9d8Пароль должен содержать не менее #fd5e5e%amount%#d4d9d8 символов в верхнем регистре.!'
+      NotEnoughDigits:
+      - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+      - '#fd5e5e&lНенадежный пароль!'
+      - '#d4d9d8Пароль должен содержать не менее #fd5e5e%amount%#d4d9d8 цифр!'
+      NotEnoughUniques:
+      - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+      - '#fd5e5e&lНенадежный пароль!'
+      - '#d4d9d8Пароль должен содержать не менее #fd5e5e%amount%#d4d9d8 уникальных символов!'
+    IPLimit:
+    - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+    - '#fd5e5e&lСлишком много учетных записей!'
+    - '#d4d9d8Вы достигли лимита учетных записей для вашего IP.'
+Changepassword:
+  Error:
+    WrongOld: Старый пароль неправильный!
+  Notify:
+    Changed: Вы изменили пароль!
+Secret:
+  Error:
+    NotSet: '#fd5e5eУ вас нет секретного вопроса.!'
+    AlreadySet: '#fd5e5eУ вас уже есть секретный вопрос! Сначала вам нужно удалить его.'
+  Add:
+    Notify:
+    - <! prefix:"false" !>
+    - '&7'
+    - '#fdf35e&l>#d4d9d8 Дополнительно защитите свой аккаунт, добавив #fdf35eСекретный вопрос#d4d9d8!'
+    - '#fdf35e&l>#d4d9d8 Введите #fdf35e/secret add#d4d9d8, чтобы добавить секретный вопрос.'
+    - '&7'
+    Question:
+    - <! type:"titles:20:-1:20" sound:"BLOCK_LAVA_POP" !>
+    - '#fdf35e&lСекретный вопрос'
+    - '#d4d9d8Напишите секретный вопрос в #fdf35eчате#d4d9d8.'
+    Answer:
+    - <! type:"titles:20:-1:20" sound:"BLOCK_LAVA_POP" !>
+    - '#fdf35e&l%question%'
+    - '#d4d9d8Напишите ответ на секретный вопрос в #fdf35eчате#d4d9d8.'
+    Done:
+    - <! type:"titles:20:60:20" sound:"BLOCK_ENCHANTMENT_TABLE_USE" !>
+    - '#aefd5e&lСикретный вопрос добавлен!'
+    - '#d4d9d8Вы создали секретный вопрос для своей учетной записи.'
+  Answer:
+    Prompt:
+    - <! type:"titles:20:-1:20" sound:"BLOCK_LAVA_POP" !>
+    - '#fdba5e&l%question%'
+    - '#d4d9d8Введите секретный ответ в #fdba5eчате#d4d9d8.'
+    Wrong:
+    - <! type:"titles:20:-1:20" sound:"ENTITY_VILLAGER_NO" !>
+    - '#fd5e5e&l%question%'
+    - '#d4d9d8Ответ на сикретный вопрос неверный. Попробуйте #fd5e5eпозже#d4d9d8.'
+  Remove:
+    Done:
+    - <! type:"titles:20:60:20" sound:"BLOCK_GRINDSTONE_USE" !>
+    - '#aefd5e&lСикретный вопрос удалён'
+    - '#d4d9d8Вы удалили секретный вопрос для своей учетной записи.'
